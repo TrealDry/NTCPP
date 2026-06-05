@@ -16,7 +16,7 @@ constexpr char c_version[] = "0.1.0";
 SDL_Window* window;
 SDL_Renderer* renderer;
 
-ntcpp::window win;
+auto& win = ntcpp::window::get_instance();
 
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[]) {
     SDL_SetAppMetadata(
@@ -40,7 +40,19 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[]) {
         SDL_LOGICAL_PRESENTATION_LETTERBOX
     );
 
-    win.init(window, renderer);
+    auto win_init_status = win.init(window, renderer);
+    if (win_init_status != ntcpp::en_win_status::OK) {
+        switch (win_init_status) {
+        case ntcpp::en_win_status::TEX_MANAGER_INIT_FAILED:
+            SDL_Log("texture manager init failed!");
+            break;
+        default:
+            SDL_Log("unknown error!");
+            break;
+        }
+
+        return SDL_APP_FAILURE;
+    }
 
     return SDL_APP_CONTINUE;
 }

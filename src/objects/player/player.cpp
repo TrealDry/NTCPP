@@ -1,7 +1,9 @@
 #include "player.hpp"
+#include "SDL3/SDL_render.h"
+
+#include "../../core/texture_manager.hpp"
 
 #include <cmath>
-#include "SDL3/SDL_render.h"
 
 namespace ntcpp {
     void player::update() {
@@ -40,13 +42,28 @@ namespace ntcpp {
     }
 
     void player::draw(SDL_Renderer* renderer) {
-        SDL_FRect rect;
+        auto& tex_manager = texture_manager::get_instance();
 
-        rect.x = m_position.x;
-        rect.y = m_position.y;
-        rect.w = rect.h = 24.f;
+        auto spr_data = tex_manager.get_sprite("sprMutant1Idle_0");
 
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-        SDL_RenderFillRect(renderer, &rect);
+        if (spr_data.has_value()) {
+            auto texture = tex_manager.get_texture(spr_data.value().second);
+            if (!texture.has_value()) return;
+
+            SDL_FRect dst = SDL_FRect{m_position.x, m_position.y, 24.f, 24.f};
+
+            SDL_RenderTexture(
+                renderer, texture.value(),
+                &spr_data->first, &dst);
+        } else {
+            SDL_FRect rect;
+
+            rect.x = m_position.x;
+            rect.y = m_position.y;
+            rect.w = rect.h = 24.f;
+
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+            SDL_RenderFillRect(renderer, &rect);
+        }
     }
 }

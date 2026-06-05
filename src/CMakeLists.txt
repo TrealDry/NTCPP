@@ -7,7 +7,9 @@ add_executable(${PROJECT_NAME}
         objects/player/player.hpp
         math/vec2.hpp
         core/obj_manager.cpp
-        core/obj_manager.hpp)
+        core/obj_manager.hpp
+        core/texture_manager.cpp
+        core/texture_manager.hpp)
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE vendor)
