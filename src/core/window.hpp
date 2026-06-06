@@ -8,10 +8,6 @@
 #include "texture_manager.hpp"
 
 namespace ntcpp {
-    enum class en_win_status {
-        OK, TEX_MANAGER_INIT_FAILED
-    };
-
     class window {
     public:
         SDL_Window* m_window = nullptr;
@@ -29,14 +25,14 @@ namespace ntcpp {
         window(window const&)         = delete;
         void operator=(window const&) = delete;
 
-        en_win_status init(SDL_Window* win, SDL_Renderer* renderer) {
+        std::optional<status> init(SDL_Window* win, SDL_Renderer* renderer) {
             m_window = win;
             m_renderer = renderer;
 
-            if (m_texture_manager.init(m_renderer) != en_tex_mng_status::OK)
-                return en_win_status::TEX_MANAGER_INIT_FAILED;
+            auto tex_manager_result = m_texture_manager.init(m_renderer);
+            if (tex_manager_result.has_value()) return tex_manager_result;
 
-            return en_win_status::OK;
+            return std::nullopt;
         }
 
         void update() {

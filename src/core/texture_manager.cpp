@@ -1,17 +1,24 @@
 #include "texture_manager.hpp"
 #include "nlohmann/json.hpp"
 
+#define QOI_IMPLEMENTATION
+#include "qoi.h"
+
 #include <fstream>
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;
 
 namespace ntcpp {
-    en_tex_mng_status texture_manager::init(SDL_Renderer* renderer) {
-        fs::path dir = "assets/textures";
+    std::optional<status> texture_manager::init(SDL_Renderer* renderer) {
+        fs::path dir = "assets\\textures";
         std::unordered_map<unsigned char, std::pair<fs::path, fs::path>> texture_pairs;
 
-        if (!fs::exists(dir) || !fs::is_directory(dir)) return en_tex_mng_status::FOLDER_NOT_FOUND;
+        if (!fs::exists(dir) || !fs::is_directory(dir)) {
+            return status{
+                en_status::ERROR, "directory doesn't exist"
+            };
+        }
 
         for (const auto& entry : fs::directory_iterator(dir)) {
             auto filename = entry.path().stem().string();
@@ -19,7 +26,7 @@ namespace ntcpp {
 
             if (filename == ".gitkeep") continue;
 
-            unsigned char index = std::atoi(filename.substr(filename.find('-') + 1).c_str());
+            unsigned char index = std::atoi(filename.c_str());
 
             if (texture_pairs.find(index) != texture_pairs.end()) {  // if index exist
                 if (ext == ".json") {
@@ -37,17 +44,32 @@ namespace ntcpp {
         }
 
         for (const auto& [index, pair] : texture_pairs) {
-            const auto& [json, png] = pair;
+            const auto& [json, qoi] = pair;
 
-            if (!json_parse(json, index)) return en_tex_mng_status::INVALID_JSON;
+            if (!json_parse(json, index)) {
+                return status{
+                    en_status::ERROR, "invalid json: " + json.string()
+                };
+            }
 
-            auto* surface = SDL_LoadPNG(png.u8string().c_str());
+            qoi_desc desc;
+            void* pixels = qoi_read(qoi.u8string().c_str(), &desc, 4);
+            if (!pixels) {
+                return status{
+                    en_status::ERROR, "invalid qoi: " + qoi.string()
+                };
+            }
+
+            auto* surface = SDL_CreateSurfaceFrom(
+                (int)desc.width, (int)desc.height, SDL_PIXELFORMAT_RGBA32, pixels, (int)desc.width * 4
+            );
             m_textures[index] = SDL_CreateTextureFromSurface(renderer, surface);
+            SDL_DestroySurface(surface);
 
             SDL_SetTextureScaleMode(m_textures[index], SDL_SCALEMODE_NEAREST);
         }
 
-        return en_tex_mng_status::OK;
+        return std::nullopt;
     }
 
     std::optional<sprite_data> texture_manager::get_sprite(const std::string& name) {
@@ -71,18 +93,15 @@ namespace ntcpp {
         for (const auto& [name, etc] : data["frames"].items()) {
             SDL_FRect rect;
 
-            if (!etc.contains("frame")) return false;
+            if (!etc.contains("x")) return false;
+            if (!etc.contains("y")) return false;
+            if (!etc.contains("w")) return false;
+            if (!etc.contains("h")) return false;
 
-            auto& frame = etc["frame"];
-            if (!frame.contains("x")) return false;
-            if (!frame.contains("y")) return false;
-            if (!frame.contains("w")) return false;
-            if (!frame.contains("h")) return false;
-
-            rect.x = frame["x"];
-            rect.y = frame["y"];
-            rect.w = frame["w"];
-            rect.h = frame["h"];
+            rect.x = etc["x"];
+            rect.y = etc["y"];
+            rect.w = etc["w"];
+            rect.h = etc["h"];
 
             m_sprites[name] = {rect, texture_index};
         }

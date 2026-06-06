@@ -41,16 +41,9 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[]) {
     );
 
     auto win_init_status = win.init(window, renderer);
-    if (win_init_status != ntcpp::en_win_status::OK) {
-        switch (win_init_status) {
-        case ntcpp::en_win_status::TEX_MANAGER_INIT_FAILED:
-            SDL_Log("texture manager init failed!");
-            break;
-        default:
-            SDL_Log("unknown error!");
-            break;
-        }
 
+    if (win_init_status.has_value()) {
+        SDL_Log(win_init_status.value().msg.c_str());
         return SDL_APP_FAILURE;
     }
 

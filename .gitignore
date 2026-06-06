@@ -68,4 +68,4 @@ Testing/
 
 # ntcpp assets
 assets/textures/*.json
-assets/textures/*.png
+assets/textures/*.qoi

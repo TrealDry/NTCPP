@@ -24,3 +24,7 @@ cmake --build build
 This project is licensed under the [MIT License](LICENSE.md).
 
 Nuclear Throne is a game by [Vlambeer](https://www.vlambeer.com/). This project is an unofficial fan reconstruction and is not affiliated with or endorsed by Vlambeer.
+
+## Contacts
+
+[My Discord Server](https://discord.gg/qFMn5VvwCB)
