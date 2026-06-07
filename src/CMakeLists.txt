@@ -12,7 +12,11 @@ add_executable(${PROJECT_NAME}
         core/texture_manager.hpp
         core/status.hpp
         core/animation.cpp
-        core/animation.hpp)
+        core/animation.hpp
+        core/animation_manager.cpp
+        core/animation_manager.hpp
+        objects/hud/cursor/cursor.cpp
+        objects/hud/cursor/cursor.hpp)
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE vendor)

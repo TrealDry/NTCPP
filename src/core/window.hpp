@@ -4,8 +4,10 @@
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_video.h"
 
-#include "obj_manager.hpp"
-#include "texture_manager.hpp"
+#include "status.hpp"
+#include "../math/vec2.hpp"
+
+#include <optional>
 
 namespace ntcpp {
     class window {
@@ -13,8 +15,7 @@ namespace ntcpp {
         SDL_Window* m_window = nullptr;
         SDL_Renderer* m_renderer = nullptr;
 
-        obj_manager& m_obj_manager = obj_manager::get_instance();
-        texture_manager& m_texture_manager = texture_manager::get_instance();
+        vec2 m_mouse_pos = {};
 
     public:
         static window& get_instance() {
@@ -25,23 +26,10 @@ namespace ntcpp {
         window(window const&)         = delete;
         void operator=(window const&) = delete;
 
-        std::optional<status> init(SDL_Window* win, SDL_Renderer* renderer) {
-            m_window = win;
-            m_renderer = renderer;
+        std::optional<status> init(SDL_Window* win, SDL_Renderer* renderer);
 
-            if (auto stat = m_texture_manager.init(m_renderer)) return stat;
-            if (auto stat = m_obj_manager.init()) return stat;
-
-            return std::nullopt;
-        }
-
-        void update() {
-            m_obj_manager.update();
-        }
-
-        void draw() {
-            m_obj_manager.draw(m_renderer);
-        }
+        void update();
+        void draw();
 
     private:
         window() {}

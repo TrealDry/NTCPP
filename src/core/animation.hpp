@@ -15,64 +15,25 @@ namespace ntcpp {
         std::optional<status> init(
             std::initializer_list<std::string_view> anim_frames,
             float fps, bool loop, vec2* target_pos
-        ) {
-            m_fps = fps;
-            m_loop = loop;
+        );
 
-            m_target_pos = target_pos;
-
-            m_timer_step = fps / c_game_fps;
-            m_timer_limit = fps / 10.f;
-
-            for (const auto& str_frame : anim_frames) {
-                auto sprite_data = m_tex_manager.get_sprite(std::string(str_frame));  // пизда оптимизации
-
-                if (sprite_data.has_value()) {
-                    m_frames.push_back(sprite_data.value());
-                } else {
-                    return status{
-                        en_status::NOT_OK,
-                        "frame " + std::string(str_frame) + " not found"
-                    };
-                }
-            }
-
-            return std::nullopt;
-        }
-
-        void update() override {
-            m_timer += m_timer_step;
-
-            if (m_timer >= m_timer_limit) {
-                m_timer -= m_timer_limit;
-
-                m_current_frame++;
-                if (m_current_frame >= m_frames.size()) m_current_frame = 0;
-            }
-        }
-
-        void draw(SDL_Renderer* renderer) override {
-            sprite_data current_frame = m_frames[m_current_frame];
-
-            SDL_FRect dst = SDL_FRect{
-                m_target_pos->x, m_target_pos->y,
-                current_frame.first.w, current_frame.first.h
-            };
-
-            auto texture = m_tex_manager.get_texture(current_frame.second);
-
-            if (!texture.has_value()) return;
-
-            SDL_RenderTexture(
-                renderer, texture.value(),
-                &current_frame.first, &dst
-            );
-        }
+        void update() override;
+        void draw(SDL_Renderer* renderer) override;
 
         void play() { m_is_playing = true; }
         void stop() { m_is_playing = false; }
 
+        void reset() { m_current_frame = 0; m_timer = 0.f; }
+
         bool is_playing() { return m_is_playing; }
+
+        void set_h_flip(bool flip) { m_h_flip = flip; }
+        bool get_h_flip() { return m_h_flip; }
+
+        std::optional<sprite_data> get_frame_data(size_t frame) {
+            if (m_frames.size() <= frame) return std::nullopt;
+            return m_frames[frame];
+        }
 
     private:
         std::vector<sprite_data> m_frames;
@@ -87,6 +48,8 @@ namespace ntcpp {
         size_t m_current_frame = 0;
 
         texture_manager& m_tex_manager;
+
+        bool m_h_flip = false;
 
         bool m_is_playing = false;
         bool m_loop = false;

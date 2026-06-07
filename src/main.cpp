@@ -2,6 +2,7 @@
 
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include <SDL3/SDL_render.h>
 
 #include "core/window.hpp"
 
@@ -47,6 +48,8 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[]) {
         return SDL_APP_FAILURE;
     }
 
+    SDL_HideCursor();
+
     return SDL_APP_CONTINUE;
 }
 
@@ -57,7 +60,7 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
 
-    // win processing
+    // game processing
     win.update();
     win.draw();
 
@@ -76,6 +79,13 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
 SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event) {
     if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;
+    }
+
+    if (event->type == SDL_EVENT_MOUSE_MOTION) {
+        SDL_RenderCoordinatesFromWindow(
+            renderer, event->motion.x, event->motion.y,
+            &win.m_mouse_pos.x, &win.m_mouse_pos.y
+        );
     }
 
     return SDL_APP_CONTINUE;

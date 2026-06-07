@@ -54,6 +54,24 @@ namespace ntcpp {
             y -= other.y;
             return *this;
         }
+
+        vec2& operator/=(const vec2& other) {
+            x /= other.x;
+            y /= other.y;
+            return *this;
+        }
+
+        vec2& operator*=(const vec2& other) {
+            x *= other.x;
+            y *= other.y;
+            return *this;
+        }
+
+        vec2& operator/=(const float num) {
+            x /= num;
+            y /= num;
+            return *this;
+        }
     };
 }
 
