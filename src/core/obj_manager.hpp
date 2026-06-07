@@ -17,6 +17,12 @@ namespace ntcpp {
         obj_manager(obj_manager const&)    = delete;
         void operator=(obj_manager const&) = delete;
 
+        std::optional<status> init() {
+            if (auto stat = m_player.init()) return stat;
+
+            return std::nullopt;
+        }
+
         void update() {
             m_player.update();
         }

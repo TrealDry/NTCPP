@@ -5,7 +5,7 @@
 
 namespace ntcpp {
     enum class en_status {
-        INFO, WARNING, ERROR
+        OK, NOT_OK
     };
 
     struct status {

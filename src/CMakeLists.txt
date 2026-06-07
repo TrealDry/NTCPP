@@ -10,7 +10,9 @@ add_executable(${PROJECT_NAME}
         core/obj_manager.hpp
         core/texture_manager.cpp
         core/texture_manager.hpp
-        core/status.hpp)
+        core/status.hpp
+        core/animation.cpp
+        core/animation.hpp)
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE vendor)

@@ -29,8 +29,8 @@ namespace ntcpp {
             m_window = win;
             m_renderer = renderer;
 
-            auto tex_manager_result = m_texture_manager.init(m_renderer);
-            if (tex_manager_result.has_value()) return tex_manager_result;
+            if (auto stat = m_texture_manager.init(m_renderer)) return stat;
+            if (auto stat = m_obj_manager.init()) return stat;
 
             return std::nullopt;
         }

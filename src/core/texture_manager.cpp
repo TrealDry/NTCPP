@@ -16,7 +16,7 @@ namespace ntcpp {
 
         if (!fs::exists(dir) || !fs::is_directory(dir)) {
             return status{
-                en_status::ERROR, "directory doesn't exist"
+                en_status::NOT_OK, "directory doesn't exist"
             };
         }
 
@@ -48,7 +48,7 @@ namespace ntcpp {
 
             if (!json_parse(json, index)) {
                 return status{
-                    en_status::ERROR, "invalid json: " + json.string()
+                    en_status::NOT_OK, "invalid json: " + json.string()
                 };
             }
 
@@ -56,7 +56,7 @@ namespace ntcpp {
             void* pixels = qoi_read(qoi.u8string().c_str(), &desc, 4);
             if (!pixels) {
                 return status{
-                    en_status::ERROR, "invalid qoi: " + qoi.string()
+                    en_status::NOT_OK, "invalid qoi: " + qoi.string()
                 };
             }
 
