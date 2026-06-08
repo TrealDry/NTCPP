@@ -1,9 +1,12 @@
 #ifndef NUCLEAR_THRONE_CPP_ANIMATION_HPP
 #define NUCLEAR_THRONE_CPP_ANIMATION_HPP
 
-#include "texture_manager.hpp"
+#include "manager/texture_manager.hpp"
 #include "obj_interface.hpp"
 #include "../math/vec2.hpp"
+#include "status.hpp"
+
+#include <optional>
 
 constexpr float c_game_fps = 30.f;
 

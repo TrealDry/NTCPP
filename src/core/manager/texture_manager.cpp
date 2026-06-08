@@ -11,7 +11,7 @@ using json = nlohmann::json;
 
 namespace ntcpp {
     std::optional<status> texture_manager::init(SDL_Renderer* renderer) {
-        fs::path dir = "assets\\textures";
+        fs::path dir = fs::path("assets") / "textures";
         std::unordered_map<unsigned char, std::pair<fs::path, fs::path>> texture_pairs;
 
         if (!fs::exists(dir) || !fs::is_directory(dir)) {

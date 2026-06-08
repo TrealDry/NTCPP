@@ -1,10 +1,12 @@
 #ifndef NUCLEAR_THRONE_CPP_PLAYER_HPP
 #define NUCLEAR_THRONE_CPP_PLAYER_HPP
 
-#include "../../core/animation_manager.hpp"
+#include "../../core/manager/animation_manager.hpp"
 #include "../../core/obj_interface.hpp"
-#include "../../core/animation.hpp"
 #include "../../math/vec2.hpp"
+
+#include <optional>
+#include "../../core/status.hpp"
 
 namespace ntcpp {
     class player : public obj_interface {

@@ -6,7 +6,7 @@
 #include <filesystem>
 #include <unordered_map>
 
-#include "status.hpp"
+#include "../status.hpp"
 #include "SDL3/SDL_rect.h"
 #include "SDL3/SDL_render.h"
 

@@ -2,9 +2,11 @@
 #include "SDL3/SDL_render.h"
 
 #include "../../core/window.hpp"
-#include "../../core/texture_manager.hpp"
+#include "../../core/animation.hpp"
 
 #include <cmath>
+
+#include "../../core/manager/input_manager.hpp"
 
 namespace ntcpp {
     std::optional<status> player::init() {
@@ -30,13 +32,13 @@ namespace ntcpp {
     }
 
     void player::movement() {
-        const bool* keys = SDL_GetKeyboardState(nullptr);
+        auto& input_manager = input_manager::get_instance();
 
         vec2 input;
-        if (keys[SDL_SCANCODE_W]) input.y -= 1;
-        if (keys[SDL_SCANCODE_S]) input.y += 1;
-        if (keys[SDL_SCANCODE_A]) input.x -= 1;
-        if (keys[SDL_SCANCODE_D]) input.x += 1;
+        if (input_manager.get_key_status(en_keys::UP)) input.y -= 1;
+        if (input_manager.get_key_status(en_keys::DOWN)) input.y += 1;
+        if (input_manager.get_key_status(en_keys::LEFT)) input.x -= 1;
+        if (input_manager.get_key_status(en_keys::RIGHT)) input.x += 1;
 
         if (input.x != 0 || input.y != 0) {  // key move
             m_velocity = vec2::normalize(input) * m_speed;

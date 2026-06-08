@@ -1,7 +1,8 @@
 #include "window.hpp"
 
-#include "obj_manager.hpp"
-#include "texture_manager.hpp"
+#include "manager/obj_manager.hpp"
+#include "manager/input_manager.hpp"
+#include "manager/texture_manager.hpp"
 
 namespace ntcpp {
     std::optional<status> window::init(SDL_Window* win, SDL_Renderer* renderer) {
@@ -15,6 +16,7 @@ namespace ntcpp {
     }
 
     void window::update() {
+        input_manager::get_instance().update();
         obj_manager::get_instance().update();
     }
 
