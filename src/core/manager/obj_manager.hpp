@@ -3,12 +3,14 @@
 
 #include "../../objects/hud/cursor/cursor.hpp"
 #include "../../objects/player/player.hpp"
+#include "../../objects/terrain/terrain.hpp"
 
 namespace ntcpp {
     class obj_manager {
     public:
         player m_player;
         cursor m_cursor;
+        terrain m_terrain;
 
     public:
         static obj_manager& get_instance() {
@@ -22,16 +24,18 @@ namespace ntcpp {
         std::optional<status> init() {
             if (auto stat = m_player.init()) return stat;
             if (auto stat = m_cursor.init()) return stat;
+            m_terrain.init();
 
             return std::nullopt;
         }
 
         void update() {
+            m_terrain.update();
             m_player.update();
-            m_cursor.update();
         }
 
         void draw(SDL_Renderer* renderer) {
+            m_terrain.draw(renderer);
             m_player.draw(renderer);
             m_cursor.draw(renderer);
         }

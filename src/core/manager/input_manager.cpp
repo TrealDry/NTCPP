@@ -2,6 +2,8 @@
 
 namespace ntcpp {
     void input_manager::update() {
+        static const bool* m_sdl_keys = SDL_GetKeyboardState(nullptr);
+
         for (auto& key_pair : m_scan_codes) {
             bool is_pressed = false;
 
@@ -14,7 +16,7 @@ namespace ntcpp {
 
             if (is_pressed) {
                 if (m_keys[key_pair.first] == 1) { m_keys[key_pair.first] = 2; }
-                else { m_keys[key_pair.first] = 1; }
+                else if (m_keys[key_pair.first] != 2) { m_keys[key_pair.first] = 1; }
             } else {
                 if (m_keys[key_pair.first] == 1 || m_keys[key_pair.first] == 2) { m_keys[key_pair.first] = 3; }
                 else if (m_keys[key_pair.first] == 3) { m_keys[key_pair.first] = 0; }

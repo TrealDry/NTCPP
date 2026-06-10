@@ -1,9 +1,11 @@
 #include "animation.hpp"
 
+#include "../math/frect.hpp"
+
 namespace ntcpp {
     std::optional<status> animation::init(
         std::initializer_list<std::string_view> anim_frames,
-        float fps, bool loop, vec2* target_pos
+        float fps, bool loop, vec2* target_pos, vec2 origin
     ) {
         m_fps = fps;
         m_loop = loop;
@@ -12,6 +14,8 @@ namespace ntcpp {
 
         m_timer_step = fps / c_game_fps;
         m_timer_limit = fps / 10.f;
+
+        m_origin = origin;
 
         for (const auto& str_frame : anim_frames) {
             auto sprite_data = m_tex_manager.get_sprite(std::string(str_frame));  // пизда оптимизации
@@ -54,14 +58,16 @@ namespace ntcpp {
 
         SDL_FRect dst;
 
+        vec2 pos_with_origin = *m_target_pos + m_origin;
+
         if (m_h_flip) {
             dst = SDL_FRect{
-                m_target_pos->x + current_frame.first.w, m_target_pos->y,
+                pos_with_origin.x + current_frame.first.w, pos_with_origin.y,
                 -current_frame.first.w, current_frame.first.h
             };
         } else {
             dst = SDL_FRect{
-                m_target_pos->x, m_target_pos->y,
+                pos_with_origin.x, pos_with_origin.y,
                 current_frame.first.w, current_frame.first.h
             };
         }

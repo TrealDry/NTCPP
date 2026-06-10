@@ -1,6 +1,7 @@
 #include "window.hpp"
 
 #include "manager/obj_manager.hpp"
+#include "manager/debug_manager.hpp"
 #include "manager/input_manager.hpp"
 #include "manager/texture_manager.hpp"
 
@@ -17,6 +18,7 @@ namespace ntcpp {
 
     void window::update() {
         input_manager::get_instance().update();
+        debug_manager::get_instance().update();
         obj_manager::get_instance().update();
     }
 

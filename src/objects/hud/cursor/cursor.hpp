@@ -1,22 +1,18 @@
 #ifndef NUCLEAR_THRONE_CPP_CURSOR_HPP
 #define NUCLEAR_THRONE_CPP_CURSOR_HPP
 
-#include "../../../core/window.hpp"
 #include "../../../core/animation.hpp"
 #include "../../../core/obj_interface.hpp"
+#include "../../../core/sprite.hpp"
 
 namespace ntcpp {
-    class cursor : obj_interface {
+    class cursor {
     public:
         std::optional<status> init();
 
-        void update() override;
-        void draw(SDL_Renderer* renderer) override;
+        void draw(SDL_Renderer* renderer);
     private:
-        animation m_sprite;
-
-        vec2 m_crosshair_size;
-        vec2 m_mouse_pos;
+        sprite m_sprite;
     };
 }
 

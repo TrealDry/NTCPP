@@ -17,7 +17,7 @@ namespace ntcpp {
 
         std::optional<status> init(
             std::initializer_list<std::string_view> anim_frames,
-            float fps, bool loop, vec2* target_pos
+            float fps, bool loop, vec2* target_pos, vec2 origin
         );
 
         void update() override;
@@ -40,6 +40,8 @@ namespace ntcpp {
 
     private:
         std::vector<sprite_data> m_frames;
+
+        vec2 m_origin = {};
 
         float m_timer = 0.f;
         float m_timer_step = 0.f;

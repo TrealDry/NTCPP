@@ -7,7 +7,9 @@
 
 namespace ntcpp {
     enum class en_keys {
-        UP, DOWN, RIGHT, LEFT, FIRE, SPEC, PICK, SWAP, PAUSE, YV_AIRHORN
+        UP, DOWN, RIGHT, LEFT, FIRE,
+        SPEC, PICK, SWAP, PAUSE, YV_AIRHORN,
+        DEBUG
     };
 
     class input_manager {
@@ -35,7 +37,8 @@ namespace ntcpp {
             {en_keys::RIGHT, 0}, {en_keys::LEFT, 0},
             {en_keys::FIRE, 0}, {en_keys::SPEC, 0},
             {en_keys::PICK, 0}, {en_keys::SWAP, 0},
-            {en_keys::PAUSE, 0}, {en_keys::YV_AIRHORN, 0}
+            {en_keys::PAUSE, 0}, {en_keys::YV_AIRHORN, 0},
+            {en_keys::DEBUG, 0}
         };
 
         // F24 - left click, F23 - right click, F22 - mouse wheel up, F21 - mouse wheel down, F20 - middle click
@@ -49,10 +52,9 @@ namespace ntcpp {
             {en_keys::PICK, {SDL_SCANCODE_E}},
             {en_keys::SWAP, {SDL_SCANCODE_SPACE, SDL_SCANCODE_F22, SDL_SCANCODE_F21, SDL_SCANCODE_F20}},
             {en_keys::PAUSE, {SDL_SCANCODE_ESCAPE}},
-            {en_keys::YV_AIRHORN, {SDL_SCANCODE_B}}
+            {en_keys::YV_AIRHORN, {SDL_SCANCODE_B}},
+            {en_keys::DEBUG, {SDL_SCANCODE_F1}}
         };
-
-        const bool* m_sdl_keys = SDL_GetKeyboardState(nullptr);
 
     private:
         input_manager() {}

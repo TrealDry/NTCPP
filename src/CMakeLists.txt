@@ -1,7 +1,6 @@
 add_executable(${PROJECT_NAME}
         core/window.cpp
         core/window.hpp
-        core/obj_interface.cpp
         core/obj_interface.hpp
         objects/player/player.cpp
         objects/player/player.hpp
@@ -18,7 +17,20 @@ add_executable(${PROJECT_NAME}
         objects/hud/cursor/cursor.cpp
         objects/hud/cursor/cursor.hpp
         core/manager/input_manager.cpp
-        core/manager/input_manager.hpp)
+        core/manager/input_manager.hpp
+        core/sprite.cpp
+        core/sprite.hpp
+        objects/terrain/terrain.cpp
+        objects/terrain/terrain.hpp
+        objects/terrain/wall/wall.cpp
+        objects/terrain/wall/wall.hpp
+        math/circle.hpp
+        core/manager/collision_manager.cpp
+        core/manager/collision_manager.hpp
+        math/frect.hpp
+        core/manager/debug_manager.cpp
+        core/manager/debug_manager.hpp
+)
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE vendor)
