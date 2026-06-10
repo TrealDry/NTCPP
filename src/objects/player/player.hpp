@@ -19,6 +19,8 @@ namespace ntcpp {
 
         SDL_FRect get_global_hitbox() { return vec2_addiction(m_hitbox, m_position); }
 
+        void move_and_collide(float step, bool is_y);
+
     private:
         SDL_FRect m_hitbox = {-4.f, -4.f, 8.f, 10.f};
 

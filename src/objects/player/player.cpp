@@ -36,6 +36,29 @@ namespace ntcpp {
         return std::nullopt;
     }
 
+    void player::move_and_collide(float step, bool is_y) {
+        if (step == 0.f) return;
+
+        if (is_y) m_position.y += step;
+        else      m_position.x += step;
+
+        auto wall_collided = collision_manager::get_instance().wall_collided(get_global_hitbox());
+
+        if (wall_collided) {
+            float overlapX = wall_collided.value().second.w;
+            float overlapY = wall_collided.value().second.h;
+
+            if (is_y) {
+                m_position.y -= (step > 0.f) ? overlapY : -overlapY;
+                m_velocity.y = 0;
+            }
+            else {
+                m_position.x -= (step > 0.f) ? overlapX : -overlapX;
+                m_velocity.x = 0;
+            }
+        }
+    }
+
     void player::movement() {
         auto& input_manager = input_manager::get_instance();
 
@@ -75,7 +98,9 @@ namespace ntcpp {
         if (std::abs(m_velocity.x) > 3.f) m_velocity.x = 3.f * (m_velocity.x < 0.f ? -1.f : 1.f);
         if (std::abs(m_velocity.y) > 3.f) m_velocity.y = 3.f * (m_velocity.y < 0.f ? -1.f : 1.f);
 
-        m_position += m_velocity;
+        //m_position += m_velocity;
+        move_and_collide(m_velocity.x, false);
+        move_and_collide(m_velocity.y, true);
     }
 
     void player::collided() {
@@ -120,7 +145,7 @@ namespace ntcpp {
         m_anim.update();
 
         movement();
-        collided();
+        //collided();
         change_flip();
         anim_change();
     }

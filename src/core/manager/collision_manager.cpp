@@ -9,6 +9,8 @@ namespace ntcpp {
             SDL_FRect global_hitbox = _wall.get_global_hitbox();
 
             if (SDL_GetRectIntersectionFloat(&hitbox, &global_hitbox, &result)) {
+                if (result.w == 0 || result.h == 0) continue;
+
                 return std::pair{&_wall, result};
             }
         }
