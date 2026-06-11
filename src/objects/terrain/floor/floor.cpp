@@ -8,8 +8,6 @@ namespace ntcpp {
     void floor::init(vec2 pos) {
         m_pos = pos;
         m_sprite.init("sprFloor1_0", {0.f, 0.f});
-
-        create_walls();
     }
 
     void floor::create_walls() {

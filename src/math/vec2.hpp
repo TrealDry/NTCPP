@@ -1,6 +1,7 @@
 #ifndef NUCLEAR_THRONE_CPP_VEC2_HPP
 #define NUCLEAR_THRONE_CPP_VEC2_HPP
 
+#include <cmath>
 #include <complex>
 
 namespace ntcpp {
@@ -21,6 +22,12 @@ namespace ntcpp {
             }
 
             return result;
+        }
+
+        static float distance(vec2 from, vec2 to) {
+            float dx = to.x - from.x;
+            float dy = to.y - from.y;
+            return std::sqrtf(dx*dx + dy*dy);
         }
 
         vec2 operator+(const vec2& other) const {
@@ -73,7 +80,7 @@ namespace ntcpp {
             return *this;
         }
 
-        bool operator==(const vec2& other) {
+        bool operator==(const vec2& other) const {
             return x == other.x && y == other.y;
         }
     };

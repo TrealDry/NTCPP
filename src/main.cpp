@@ -54,6 +54,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[]) {
     }
 
     SDL_HideCursor();
+    SDL_srand(0);
 
     return SDL_APP_CONTINUE;
 }

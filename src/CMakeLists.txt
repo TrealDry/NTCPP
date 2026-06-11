@@ -31,6 +31,8 @@ add_executable(${PROJECT_NAME}
         core/manager/debug_manager.hpp
         objects/terrain/floor/floor.cpp
         objects/terrain/floor/floor.hpp
+        objects/terrain/floor_maker/floor_maker.cpp
+        objects/terrain/floor_maker/floor_maker.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)

@@ -7,10 +7,9 @@
 #include "../../core/animation.hpp"
 #include "../../core/manager/input_manager.hpp"
 #include "../../core/manager/collision_manager.hpp"
+#include "../../core/manager/debug_manager.hpp"
 
 #include <cmath>
-
-#include "../../core/manager/debug_manager.hpp"
 
 namespace ntcpp {
     std::optional<status> player::init() {

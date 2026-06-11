@@ -24,7 +24,7 @@ namespace ntcpp {
     private:
         SDL_FRect m_hitbox = {-4.f, -4.f, 8.f, 10.f};
 
-        vec2 m_position;
+        vec2 m_position = {16.f, 16.f};
         vec2 m_velocity;
         float m_speed = 3.f;
         float m_friction = 0.45f;
