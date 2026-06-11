@@ -14,13 +14,12 @@
 
 namespace ntcpp {
     std::optional<status> player::init() {
-        //anim
         animation idle;
         animation walk;
 
         if (auto stat = idle.init(
             {"sprMutant1Idle_0", "sprMutant1Idle_1", "sprMutant1Idle_2", "sprMutant1Idle_3"},
-            13.5f, true, &m_position, {-12.f, -12.f}
+            13.5f, true, {-12.f, -12.f}
         )) return stat;
 
         if (auto stat = walk.init(
@@ -28,7 +27,7 @@ namespace ntcpp {
                 "sprMutant1Walk_0", "sprMutant1Walk_1", "sprMutant1Walk_2",
                 "sprMutant1Walk_3", "sprMutant1Walk_4", "sprMutant1Walk_5"
             },
-            13.5f, true, &m_position, {-12.f, -12.f}
+            13.5f, true, {-12.f, -12.f}
         )) return stat;
 
         m_anim.init({&idle, &walk}, 0);
@@ -98,29 +97,8 @@ namespace ntcpp {
         if (std::abs(m_velocity.x) > 3.f) m_velocity.x = 3.f * (m_velocity.x < 0.f ? -1.f : 1.f);
         if (std::abs(m_velocity.y) > 3.f) m_velocity.y = 3.f * (m_velocity.y < 0.f ? -1.f : 1.f);
 
-        //m_position += m_velocity;
         move_and_collide(m_velocity.x, false);
         move_and_collide(m_velocity.y, true);
-    }
-
-    void player::collided() {
-        while (auto wall_collided = collision_manager::get_instance() \
-                   .wall_collided(get_global_hitbox())) {
-            float overlapX = wall_collided.value().second.w;
-            float overlapY = wall_collided.value().second.h;
-
-            if (overlapX <= 0.f || overlapY <= 0.f) break;
-
-            if (overlapX < overlapY) {
-                m_position.x += (
-                    m_position.x < wall_collided.value().first->get_global_hitbox().x
-                ) ? -overlapX : overlapX;
-            } else {
-                m_position.y += (
-                    m_position.y < wall_collided.value().first->get_global_hitbox().y
-                ) ? -overlapY : overlapY;
-            }
-        }
     }
 
     void player::change_flip() {
@@ -145,18 +123,17 @@ namespace ntcpp {
         m_anim.update();
 
         movement();
-        //collided();
         change_flip();
         anim_change();
     }
 
     void player::draw(SDL_Renderer* renderer) {
-        m_anim.draw(renderer);
+        m_anim.draw(renderer, m_position);
 
         if (debug_manager::get_instance().m_is_active) {
             auto global_hitbox = get_global_hitbox();
 
-            SDL_SetRenderDrawColor(renderer, 102, 102, 102, 102);
+            SDL_SetRenderDrawColor(renderer, 102, 102, 102, 200);
             SDL_RenderRect(renderer, &global_hitbox);
 
             SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);

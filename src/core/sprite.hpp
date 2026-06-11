@@ -7,7 +7,7 @@
 namespace ntcpp {
     class sprite {
     public:
-        std::optional<status> init(const std::string& sprite_name, vec2* pos, vec2 origin) {
+        std::optional<status> init(const std::string& sprite_name, vec2 origin) {
             if (auto spr_data = texture_manager::get_instance().get_sprite(sprite_name))
                 m_sprite_data = spr_data.value();
             else {
@@ -16,18 +16,19 @@ namespace ntcpp {
                     "sprite " + sprite_name + " not found"
                 };
             }
-            m_pos = pos;
             m_origin = origin;
 
             return std::nullopt;
         }
 
-        void draw(SDL_Renderer* renderer) {
+        void draw(SDL_Renderer* renderer, vec2 pos) {
             auto texture = texture_manager::get_instance().get_texture(m_sprite_data.second);
             if (!texture.has_value()) return;
 
             auto dst = SDL_FRect{
-                m_pos->x - m_origin.x, m_pos->y - m_origin.y, m_sprite_data.first.w,
+                pos.x - m_origin.x,
+                pos.y - m_origin.y,
+                m_sprite_data.first.w,
                 m_sprite_data.first.h
             };
 

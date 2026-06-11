@@ -11,17 +11,17 @@
 constexpr float c_game_fps = 30.f;
 
 namespace ntcpp {
-    class animation : obj_interface {
+    class animation {
     public:
         animation() : m_tex_manager(texture_manager::get_instance()) {}
 
         std::optional<status> init(
             std::initializer_list<std::string_view> anim_frames,
-            float fps, bool loop, vec2* target_pos, vec2 origin
+            float fps, bool loop, vec2 origin
         );
 
-        void update() override;
-        void draw(SDL_Renderer* renderer) override;
+        void update();
+        void draw(SDL_Renderer* renderer, vec2 pos);
 
         void play() { m_is_playing = true; }
         void stop() { m_is_playing = false; }
@@ -47,8 +47,6 @@ namespace ntcpp {
         float m_timer_step = 0.f;
         float m_timer_limit = 0.f;
         float m_fps = 0.f;
-
-        vec2* m_target_pos;
 
         size_t m_current_frame = 0;
 

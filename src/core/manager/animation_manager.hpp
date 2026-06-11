@@ -6,12 +6,12 @@
 #include "../animation.hpp"
 
 namespace ntcpp {
-    class animation_manager : obj_interface {
+    class animation_manager {
     public:
         std::optional<status> init(std::initializer_list<animation*> animations, size_t current_animation);
 
-        void update() override;
-        void draw(SDL_Renderer* renderer) override;
+        void update();
+        void draw(SDL_Renderer* renderer, vec2 pos);
 
         void change_anim(size_t new_anim_index);
 

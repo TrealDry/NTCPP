@@ -18,7 +18,6 @@ add_executable(${PROJECT_NAME}
         objects/hud/cursor/cursor.hpp
         core/manager/input_manager.cpp
         core/manager/input_manager.hpp
-        core/sprite.cpp
         core/sprite.hpp
         objects/terrain/terrain.cpp
         objects/terrain/terrain.hpp
@@ -30,6 +29,8 @@ add_executable(${PROJECT_NAME}
         math/frect.hpp
         core/manager/debug_manager.cpp
         core/manager/debug_manager.hpp
+        objects/terrain/floor/floor.cpp
+        objects/terrain/floor/floor.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)

@@ -19,6 +19,7 @@ namespace ntcpp {
         void operator=(collision_manager const&)    = delete;
 
         std::optional<std::pair<wall*, SDL_FRect>> wall_collided(SDL_FRect hitbox);
+        bool has_wall(vec2 pos);
 
     private:
         collision_manager() {}

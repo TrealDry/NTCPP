@@ -72,6 +72,10 @@ namespace ntcpp {
             y /= num;
             return *this;
         }
+
+        bool operator==(const vec2& other) {
+            return x == other.x && y == other.y;
+        }
     };
 }
 

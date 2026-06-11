@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "wall/wall.hpp"
+#include "floor/floor.hpp"
 
 namespace ntcpp {
     class terrain : obj_interface {
@@ -14,8 +15,12 @@ namespace ntcpp {
 
         std::vector<wall>& get_walls() { return m_walls; }
 
+        void create_wall(vec2 pos);
+        void create_floor(vec2 pos);
+
     private:
         std::vector<wall> m_walls;
+        std::vector<floor> m_floors;
     };
 }
 

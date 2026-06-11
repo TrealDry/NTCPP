@@ -22,8 +22,8 @@ namespace ntcpp {
         m_animations[m_current_animation].update();
     }
 
-    void animation_manager::draw(SDL_Renderer* renderer) {
-        m_animations[m_current_animation].draw(renderer);
+    void animation_manager::draw(SDL_Renderer* renderer, vec2 pos) {
+        m_animations[m_current_animation].draw(renderer, pos);
     }
 
     void animation_manager::change_anim(size_t new_anim_index) {

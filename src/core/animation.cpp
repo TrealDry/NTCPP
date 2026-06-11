@@ -5,12 +5,10 @@
 namespace ntcpp {
     std::optional<status> animation::init(
         std::initializer_list<std::string_view> anim_frames,
-        float fps, bool loop, vec2* target_pos, vec2 origin
+        float fps, bool loop, vec2 origin
     ) {
         m_fps = fps;
         m_loop = loop;
-
-        m_target_pos = target_pos;
 
         m_timer_step = fps / c_game_fps;
         m_timer_limit = fps / 10.f;
@@ -53,12 +51,12 @@ namespace ntcpp {
         }
     }
 
-    void animation::draw(SDL_Renderer* renderer) {
+    void animation::draw(SDL_Renderer* renderer, vec2 pos) {
         sprite_data current_frame = m_frames[m_current_frame];
 
         SDL_FRect dst;
 
-        vec2 pos_with_origin = *m_target_pos + m_origin;
+        vec2 pos_with_origin = pos + m_origin;
 
         if (m_h_flip) {
             dst = SDL_FRect{
