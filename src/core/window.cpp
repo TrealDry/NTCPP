@@ -20,6 +20,7 @@ namespace ntcpp {
         input_manager::get_instance().update();
         debug_manager::get_instance().update();
         obj_manager::get_instance().update();
+        camera::get_instance().update();
     }
 
     void window::draw() {

@@ -1,6 +1,7 @@
 #ifndef NUCLEAR_THRONE_CPP_OBJ_MANAGER_HPP
 #define NUCLEAR_THRONE_CPP_OBJ_MANAGER_HPP
 
+#include "../camera.hpp"
 #include "../../objects/hud/cursor/cursor.hpp"
 #include "../../objects/player/player.hpp"
 #include "../../objects/terrain/terrain.hpp"

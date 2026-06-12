@@ -12,6 +12,6 @@ namespace ntcpp {
     }
 
     void cursor::draw(SDL_Renderer* renderer) {
-        m_sprite.draw(renderer, window::get_instance().m_mouse_pos);
+        m_sprite.draw(renderer, window::get_instance().m_mouse_pos, true);
     }
 }

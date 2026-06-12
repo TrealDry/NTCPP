@@ -18,7 +18,7 @@ namespace ntcpp {
 
         if (auto stat = idle.init(
             {"sprMutant1Idle_0", "sprMutant1Idle_1", "sprMutant1Idle_2", "sprMutant1Idle_3"},
-            13.5f, true, {-12.f, -12.f}
+            13.5f, true, {12.f, 12.f}
         )) return stat;
 
         if (auto stat = walk.init(
@@ -26,7 +26,7 @@ namespace ntcpp {
                 "sprMutant1Walk_0", "sprMutant1Walk_1", "sprMutant1Walk_2",
                 "sprMutant1Walk_3", "sprMutant1Walk_4", "sprMutant1Walk_5"
             },
-            13.5f, true, {-12.f, -12.f}
+            13.5f, true, {12.f, 12.f}
         )) return stat;
 
         m_anim.init({&idle, &walk}, 0);
@@ -101,7 +101,7 @@ namespace ntcpp {
     }
 
     void player::change_flip() {
-        if (window::get_instance().m_mouse_pos.x < m_position.x) {
+        if (window::get_instance().m_mouse_pos.x < camera::get_instance().world_coord_to_camera(m_position.x, false)) {
             m_anim.set_h_flip(true);
         } else {
             m_anim.set_h_flip(false);
@@ -131,12 +131,21 @@ namespace ntcpp {
 
         if (debug_manager::get_instance().m_is_active) {
             auto global_hitbox = get_global_hitbox();
+            global_hitbox = SDL_FRect{
+                camera::get_instance().world_coord_to_camera(global_hitbox.x, false),
+                camera::get_instance().world_coord_to_camera(global_hitbox.y, true),
+                global_hitbox.w, global_hitbox.h
+            };
 
             SDL_SetRenderDrawColor(renderer, 102, 102, 102, 200);
             SDL_RenderRect(renderer, &global_hitbox);
 
             SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-            SDL_RenderPoint(renderer, m_position.x, m_position.y);
+            SDL_RenderPoint(
+                renderer,
+                camera::get_instance().world_coord_to_camera(m_position.x, false),
+                camera::get_instance().world_coord_to_camera(m_position.y, true)
+            );
         }
     }
 }

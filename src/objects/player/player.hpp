@@ -21,6 +21,8 @@ namespace ntcpp {
 
         void move_and_collide(float step, bool is_y);
 
+        vec2 get_pos() { return m_position; }
+
     private:
         SDL_FRect m_hitbox = {-4.f, -4.f, 8.f, 10.f};
 
@@ -35,7 +37,6 @@ namespace ntcpp {
 
     private:
         inline void movement();
-        inline void collided();
         inline void change_flip();
         inline void anim_change();
     };

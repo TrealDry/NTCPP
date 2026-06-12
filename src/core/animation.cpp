@@ -1,5 +1,6 @@
 #include "animation.hpp"
 
+#include "camera.hpp"
 #include "../math/frect.hpp"
 
 namespace ntcpp {
@@ -56,7 +57,7 @@ namespace ntcpp {
 
         SDL_FRect dst;
 
-        vec2 pos_with_origin = pos + m_origin;
+        vec2 pos_with_origin = camera::get_instance().world_coord_to_camera(pos - m_origin);
 
         if (m_h_flip) {
             dst = SDL_FRect{
