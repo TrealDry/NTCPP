@@ -10,19 +10,13 @@ namespace ntcpp {
 
     class collision_manager {
     public:
-        static collision_manager& get_instance() {
-            static collision_manager instance;
-            return instance;
-        }
+        collision_manager() = delete;
 
-        collision_manager(collision_manager const&) = delete;
-        void operator=(collision_manager const&)    = delete;
+        static std::optional<std::pair<wall*, SDL_FRect>> wall_collided(SDL_FRect hitbox);
+        static bool floor_collided(SDL_FRect hitbox);
 
-        std::optional<std::pair<wall*, SDL_FRect>> wall_collided(SDL_FRect hitbox);
-        bool has_wall(vec2 pos);
-
-    private:
-        collision_manager() {}
+        static bool has_wall(vec2 pos);
+        static bool has_floor(vec2 pos);
     };
 }
 

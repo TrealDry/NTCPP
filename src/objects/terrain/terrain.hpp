@@ -8,6 +8,8 @@
 #include "floor_maker/floor_maker.hpp"
 
 namespace ntcpp {
+    enum class en_gen_status {CREATE_FLOORS, DONE};
+
     class terrain : obj_interface {
     public:
         void init();
@@ -27,6 +29,8 @@ namespace ntcpp {
         std::vector<wall> m_walls;
         std::vector<floor> m_floors;
         std::vector<floor_maker> m_floor_makers;
+
+        en_gen_status m_gen_status = en_gen_status::CREATE_FLOORS;
     };
 }
 

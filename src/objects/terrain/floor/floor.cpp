@@ -18,9 +18,12 @@ namespace ntcpp {
         };
 
         for (const auto& coord : arr) {
-            if (!collision_manager::get_instance().has_wall(m_pos + coord)) {
+            if (!collision_manager::floor_collided({
+                m_pos.x + coord.x,
+                m_pos.y + coord.y,
+                16.f, 16.f
+            }))
                 obj_manager::get_instance().m_terrain.create_wall(m_pos + coord);
-            }
         }
     }
 

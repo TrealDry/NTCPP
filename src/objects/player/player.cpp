@@ -40,7 +40,7 @@ namespace ntcpp {
         if (is_y) m_position.y += step;
         else      m_position.x += step;
 
-        auto wall_collided = collision_manager::get_instance().wall_collided(get_global_hitbox());
+        auto wall_collided = collision_manager::wall_collided(get_global_hitbox());
 
         if (wall_collided) {
             float overlapX = wall_collided.value().second.w;

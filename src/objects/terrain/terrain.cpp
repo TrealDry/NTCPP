@@ -1,27 +1,22 @@
 #include "terrain.hpp"
 
+#include "../../core/manager/collision_manager.hpp"
+
 namespace ntcpp {
     void terrain::init() {
-        // m_walls.emplace_back();
-        // m_walls.emplace_back();
-        // m_walls.emplace_back();
-        //
-        // m_walls[0].init({64.f, 64.f});
-        // m_walls[1].init({64.f, 80.f});
-        // m_walls[2].init({48.f, 96.f});
-        //
-        // m_floors.emplace_back();
-        // m_floors[0].init({128.f, 128.f});
-
         create_floor_maker({0.f, 0.f});
     }
 
     void terrain::create_wall(vec2 pos) {
+        if (collision_manager::has_wall(pos)) return;
+
         m_walls.emplace_back();
         m_walls.back().init(pos);
     }
 
     void terrain::create_floor(vec2 pos) {
+        if (collision_manager::has_floor(pos)) return;
+
         m_floors.emplace_back();
         m_floors.back().init(pos);
     }
@@ -34,7 +29,7 @@ namespace ntcpp {
     void terrain::update() {
         std::vector<vec2> new_floor_makers;
 
-        // update
+        // update floor maker
         for (auto& _floor_maker : m_floor_makers) {
             _floor_maker.update();
 
@@ -55,6 +50,14 @@ namespace ntcpp {
         std::for_each(new_floor_makers.begin(), new_floor_makers.end(), [this](vec2& new_pos) {
             create_floor_maker(new_pos);
         });
+
+        if (m_floor_makers.empty() && m_gen_status == en_gen_status::CREATE_FLOORS) {
+            std::for_each(m_floors.begin(), m_floors.end(), [](floor& _floor) {
+                _floor.create_walls();
+            });
+
+            m_gen_status = en_gen_status::DONE;
+        }
     }
 
     void terrain::draw(SDL_Renderer* renderer) {

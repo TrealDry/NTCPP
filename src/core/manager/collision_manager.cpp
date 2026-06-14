@@ -18,9 +18,32 @@ namespace ntcpp {
         return std::nullopt;
     }
 
+    bool collision_manager::floor_collided(SDL_FRect hitbox) {
+        for (auto& _floor : obj_manager::get_instance().m_terrain.get_floors()) {
+            SDL_FRect result;
+            SDL_FRect global_hitbox = _floor.get_global_hitbox();
+
+            if (SDL_GetRectIntersectionFloat(&hitbox, &global_hitbox, &result)) {
+                if (result.w == 0 || result.h == 0) continue;
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     bool collision_manager::has_wall(vec2 pos) {
         for (auto& _wall : obj_manager::get_instance().m_terrain.get_walls()) {
             if (_wall.get_pos() == pos) return true;
+        }
+
+        return false;
+    }
+
+    bool collision_manager::has_floor(vec2 pos) {
+        for (auto& _floor : obj_manager::get_instance().m_terrain.get_floors()) {
+            if (_floor.get_pos() == pos) return true;
         }
 
         return false;

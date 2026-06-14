@@ -1,5 +1,6 @@
 #include "floor_maker.hpp"
 
+#include "../../../core/manager/collision_manager.hpp"
 #include "../../../core/manager/obj_manager.hpp"
 
 namespace ntcpp {
@@ -29,7 +30,7 @@ namespace ntcpp {
     void floor_maker::update() {
         if (obj_manager::get_instance().m_terrain.get_floors().size() > m_goal) {
             if (vec2::distance({16.f, 16.f}, m_pos) > 48.f) {
-                obj_manager::get_instance().m_terrain.create_floor(m_pos);  // TODO проверить есть ли другой пол
+                obj_manager::get_instance().m_terrain.create_floor(m_pos);
                 ; // TODO создать колбу радиации
             }
 
