@@ -20,6 +20,7 @@ namespace ntcpp {
         SDL_FRect get_global_hitbox() { return vec2_addiction(m_hitbox, m_pos); }
 
         void create_walls();
+        void create_trans();
     private:
         SDL_FRect m_hitbox = {0.f, 0.f, 32.f, 32.f};
 

@@ -35,6 +35,8 @@ add_executable(${PROJECT_NAME}
         objects/terrain/floor_maker/floor_maker.hpp
         core/camera.hpp
         core/camera.cpp
+        objects/terrain/wall_trans/wall_trans.cpp
+        objects/terrain/wall_trans/wall_trans.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)

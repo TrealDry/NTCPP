@@ -17,6 +17,7 @@ namespace ntcpp {
 
         static bool has_wall(vec2 pos);
         static bool has_floor(vec2 pos);
+        static bool has_wall_trans(vec2 pos);
     };
 }
 

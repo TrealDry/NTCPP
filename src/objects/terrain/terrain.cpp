@@ -5,6 +5,10 @@
 namespace ntcpp {
     void terrain::init() {
         create_floor_maker({0.f, 0.f});
+
+        // TODO я не обрабатываю ошибки спрайтов
+        m_wall_out_sprite.init("sprWall1Out_0", {4.f, 12.f});
+        m_wall_top_sprite.init("sprWall1Top_0", {0.f, 8.f});
     }
 
     void terrain::create_wall(vec2 pos) {
@@ -24,6 +28,13 @@ namespace ntcpp {
     void terrain::create_floor_maker(vec2 pos) {
         m_floor_makers.emplace_back();
         m_floor_makers.back().init(110, pos);  // TODO сменить goal позже
+    }
+
+    void terrain::create_wall_trans(vec2 pos) {
+        if (collision_manager::has_wall_trans(pos)) return;
+
+        m_wall_trans.emplace_back();
+        m_wall_trans.back().init(pos);
     }
 
     void terrain::update() {
@@ -56,17 +67,28 @@ namespace ntcpp {
                 _floor.create_walls();
             });
 
+            std::for_each(m_floors.begin(), m_floors.end(), [](floor& _floor) {
+                _floor.create_trans();
+            });
+
             m_gen_status = en_gen_status::DONE;
         }
     }
 
     void terrain::draw(SDL_Renderer* renderer) {
+        SDL_SetRenderDrawColor(renderer, 175, 143, 106, SDL_ALPHA_OPAQUE);
+        SDL_RenderClear(renderer);
+
         for (auto& _floor : m_floors) {
             _floor.draw(renderer);
         }
 
-        for (auto& _wall : m_walls) {
-            _wall.draw(renderer);
+        for (auto& _wall : m_walls) _wall.draw(renderer);
+        for (auto& _wall : m_walls) m_wall_out_sprite.draw(renderer, _wall.get_pos());
+        for (auto& _wall : m_walls) m_wall_top_sprite.draw(renderer, _wall.get_pos());
+
+        for (auto& _wall_trans : m_wall_trans) {
+            _wall_trans.draw(renderer);
         }
     }
 }

@@ -27,6 +27,32 @@ namespace ntcpp {
         }
     }
 
+    void floor::create_trans() {
+        static const std::array<vec2, 20> arr = {
+            vec2{-32.f, -32.f}, vec2{-16.f, -32.f}, vec2{0.f, -32.f}, vec2{16.f, -32.f},
+            vec2{32.f, -32.f}, vec2{48.f, -32.f}, vec2{48.f, -16.f}, vec2{48.f, 0.f},
+            vec2{48.f, 16.f}, vec2{48.f, 32.f}, vec2{48.f, 48.f}, vec2{32.f, 48.f},
+            vec2{16.f, 48.f}, vec2{0.f, 48.f}, vec2{-16.f, 48.f}, vec2{-32.f, 48.f},
+            vec2{-32.f, 32.f}, vec2{-32.f, 16.f}, vec2{-32.f, 0.f}, vec2{-32.f, -16.f},
+        };
+
+        for (const auto& coord : arr) {
+            if (collision_manager::floor_collided({
+                m_pos.x + coord.x,
+                m_pos.y + coord.y,
+                16.f, 16.f
+            })) continue;
+
+            if (collision_manager::wall_collided({
+                m_pos.x + coord.x,
+                m_pos.y + coord.y,
+                16.f, 16.f
+            })) continue;
+
+            obj_manager::get_instance().m_terrain.create_wall_trans(m_pos + coord);
+        }
+    }
+
     void floor::update() {
         ;
     }

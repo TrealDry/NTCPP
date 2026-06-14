@@ -33,6 +33,14 @@ namespace ntcpp {
         return false;
     }
 
+    bool collision_manager::has_wall_trans(vec2 pos) {
+        for (auto& _wall : obj_manager::get_instance().m_terrain.get_walls()) {
+            if (_wall.get_pos() == pos) return true;
+        }
+
+        return false;
+    }
+
     bool collision_manager::has_wall(vec2 pos) {
         for (auto& _wall : obj_manager::get_instance().m_terrain.get_walls()) {
             if (_wall.get_pos() == pos) return true;

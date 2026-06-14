@@ -6,12 +6,10 @@
 #include "../../../math/frect.hpp"
 
 namespace ntcpp {
-    class wall : obj_interface {
+    class wall {
     public:
         void init(vec2 pos);
-
-        void update() override;
-        void draw(SDL_Renderer* renderer) override;
+        void draw(SDL_Renderer* renderer);
 
         vec2& get_pos() { return m_pos; }
         SDL_FRect& get_hitbox() { return m_hitbox; }
@@ -22,6 +20,8 @@ namespace ntcpp {
 
         vec2 m_pos = {};
         sprite m_sprite;
+
+        bool m_dont_draw = false;
     };
 }
 
