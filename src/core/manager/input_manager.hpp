@@ -1,6 +1,7 @@
 #ifndef NUCLEAR_THRONE_CPP_INPUT_MANAGER_HPP
 #define NUCLEAR_THRONE_CPP_INPUT_MANAGER_HPP
 
+#include <vector>
 #include <unordered_map>
 
 #include "SDL3/SDL_keyboard.h"

@@ -56,7 +56,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[]) {
     auto win_init_status = win.init(window, renderer);
 
     if (win_init_status.has_value()) {
-        SDL_Log(win_init_status.value().msg.c_str());
+        SDL_Log("%s", win_init_status.value().msg.c_str());
         return SDL_APP_FAILURE;
     }
 

@@ -6,6 +6,7 @@
 #include "../math/vec2.hpp"
 #include "status.hpp"
 
+#include <vector>
 #include <optional>
 
 constexpr float c_game_fps = 30.f;

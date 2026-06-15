@@ -2,6 +2,8 @@
 
 #include "../../core/manager/collision_manager.hpp"
 
+#include <algorithm>
+
 namespace ntcpp {
     void terrain::init() {
         create_floor_maker({0.f, 0.f});
