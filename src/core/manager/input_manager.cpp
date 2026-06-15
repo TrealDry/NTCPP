@@ -1,5 +1,7 @@
 #include "input_manager.hpp"
 
+#include "../window.hpp"
+
 namespace ntcpp {
     void input_manager::update() {
         static const bool* m_sdl_keys = SDL_GetKeyboardState(nullptr);
@@ -8,7 +10,9 @@ namespace ntcpp {
             bool is_pressed = false;
 
             for (auto scancode : key_pair.second) {
-                if (m_sdl_keys[scancode]) {
+                if (scancode > SDL_SCANCODE_F19 && scancode < SDL_SCANCODE_EXECUTE) {  // mouse handle
+                    is_pressed = window::get_instance().m_mouse_buttons[static_cast<en_mouse_buttons>(scancode - SDL_SCANCODE_F20)];
+                } else if (m_sdl_keys[scancode]) {
                     is_pressed = true;
                     break;
                 }

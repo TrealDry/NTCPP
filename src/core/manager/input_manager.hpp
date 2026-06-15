@@ -47,10 +47,10 @@ namespace ntcpp {
             {en_keys::DOWN, {SDL_SCANCODE_S, SDL_SCANCODE_DOWN}},
             {en_keys::RIGHT, {SDL_SCANCODE_D, SDL_SCANCODE_RIGHT}},
             {en_keys::LEFT, {SDL_SCANCODE_A, SDL_SCANCODE_LEFT}},
-            {en_keys::FIRE, {SDL_SCANCODE_F24, SDL_SCANCODE_F}},
-            {en_keys::SPEC, {SDL_SCANCODE_F23, SDL_SCANCODE_G}},
+            {en_keys::FIRE, {SDL_SCANCODE_F20, SDL_SCANCODE_F}},
+            {en_keys::SPEC, {SDL_SCANCODE_F22, SDL_SCANCODE_G}},
             {en_keys::PICK, {SDL_SCANCODE_E}},
-            {en_keys::SWAP, {SDL_SCANCODE_SPACE, SDL_SCANCODE_F22, SDL_SCANCODE_F21, SDL_SCANCODE_F20}},
+            {en_keys::SWAP, {SDL_SCANCODE_SPACE, SDL_SCANCODE_F21, SDL_SCANCODE_F23, SDL_SCANCODE_F24}},
             {en_keys::PAUSE, {SDL_SCANCODE_ESCAPE}},
             {en_keys::YV_AIRHORN, {SDL_SCANCODE_B}},
             {en_keys::DEBUG, {SDL_SCANCODE_F1}}

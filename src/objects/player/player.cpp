@@ -61,6 +61,12 @@ namespace ntcpp {
         }
     }
 
+    void player::fire() {
+        if (input_manager::get_instance().get_key_status(en_keys::FIRE) == 1) {
+            sound_manager::get_instance().play_audio("sndPistol");
+        }
+    }
+
     void player::movement() {
         auto& input_manager = input_manager::get_instance();
 
@@ -126,6 +132,7 @@ namespace ntcpp {
         m_anim.update();
 
         movement();
+        fire();
         change_flip();
         anim_change();
     }

@@ -8,15 +8,21 @@
 #include "../math/vec2.hpp"
 
 #include <optional>
+#include <unordered_map>
 
 // это лучше назвать игрой, а не окном
 namespace ntcpp {
+    enum class en_mouse_buttons {
+        LEFT = 0, MIDDLE, RIGHT, WHEEL_UP, WHEEL_DOWN
+    };
+
     class window {
     public:
         SDL_Window* m_window = nullptr;
         SDL_Renderer* m_renderer = nullptr;
 
         vec2 m_mouse_pos = {};
+        std::unordered_map<en_mouse_buttons, bool> m_mouse_buttons = {};
 
     public:
         static window& get_instance() {
@@ -34,6 +40,8 @@ namespace ntcpp {
 
     private:
         window() {}
+
+        void reset_mouse_buttons();
     };
 }
 

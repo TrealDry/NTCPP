@@ -132,6 +132,48 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event) {
         win.m_mouse_pos.y = (event->motion.y - offset_y) / scale;
     }
 
+    if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+        switch (event->button.button) {
+        case SDL_BUTTON_LEFT:
+            win.m_mouse_buttons[ntcpp::en_mouse_buttons::LEFT] = true;
+            break;
+        case SDL_BUTTON_RIGHT:
+            win.m_mouse_buttons[ntcpp::en_mouse_buttons::RIGHT] = true;
+            break;
+        case SDL_BUTTON_MIDDLE:
+            win.m_mouse_buttons[ntcpp::en_mouse_buttons::MIDDLE] = true;
+            break;
+        }
+    }
+
+    if (event->type == SDL_EVENT_MOUSE_BUTTON_UP) {
+        switch (event->button.button) {
+        case SDL_BUTTON_LEFT:
+            win.m_mouse_buttons[ntcpp::en_mouse_buttons::LEFT] = false;
+            break;
+        case SDL_BUTTON_RIGHT:
+            win.m_mouse_buttons[ntcpp::en_mouse_buttons::RIGHT] = false;
+            break;
+        case SDL_BUTTON_MIDDLE:
+            win.m_mouse_buttons[ntcpp::en_mouse_buttons::MIDDLE] = false;
+            break;
+        }
+    }
+
+    if (event->type == SDL_EVENT_MOUSE_WHEEL) {
+        if (event->wheel.y > 0.0f) {
+            win.m_mouse_buttons[ntcpp::en_mouse_buttons::WHEEL_UP] = true;
+            win.m_mouse_buttons[ntcpp::en_mouse_buttons::WHEEL_DOWN] = false;
+        }
+        else if (event->wheel.y < 0.0f) {
+            win.m_mouse_buttons[ntcpp::en_mouse_buttons::WHEEL_UP] = false;
+            win.m_mouse_buttons[ntcpp::en_mouse_buttons::WHEEL_DOWN] = true;
+        }
+    } else {
+        win.m_mouse_buttons[ntcpp::en_mouse_buttons::WHEEL_UP] = false;
+        win.m_mouse_buttons[ntcpp::en_mouse_buttons::WHEEL_UP] = false;
+    }
+
     return SDL_APP_CONTINUE;
 }
 

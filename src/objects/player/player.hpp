@@ -36,6 +36,7 @@ namespace ntcpp {
         bool m_on_move = false;
 
     private:
+        inline void fire();
         inline void movement();
         inline void change_flip();
         inline void anim_change();

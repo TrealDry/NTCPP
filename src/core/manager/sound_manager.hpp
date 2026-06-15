@@ -1,8 +1,8 @@
 #ifndef NUCLEAR_THRONE_CPP_SOUND_MANAGER_HPP
 #define NUCLEAR_THRONE_CPP_SOUND_MANAGER_HPP
 
-#include <optional>
 #include <string>
+#include <optional>
 #include <unordered_map>
 #include <SDL3_mixer/SDL_mixer.h>
 
@@ -25,8 +25,8 @@ namespace ntcpp {
         void play_audio(const std::string& name);
 
     private:
-        MIX_Mixer* m_mixer;
-        std::unordered_map<std::string, MIX_Audio*> m_sounds;
+        MIX_Mixer* m_mixer = nullptr;
+        std::unordered_map<std::string, MIX_Audio*> m_sounds = {};
 
     private:
         sound_manager() {}
