@@ -18,6 +18,8 @@ namespace ntcpp {
         void update() override;
         void draw(SDL_Renderer* renderer) override;
 
+        void draw_top_layer(SDL_Renderer* renderer);
+
         std::vector<wall>& get_walls() { return m_walls; }
         std::vector<floor>& get_floors() { return m_floors; }
         std::vector<floor_maker>& get_floor_makers() { return m_floor_makers; }
@@ -35,7 +37,6 @@ namespace ntcpp {
         std::vector<wall_trans> m_wall_trans;
 
         sprite m_wall_out_sprite;
-        sprite m_wall_top_sprite;
 
         en_gen_status m_gen_status = en_gen_status::CREATE_FLOORS;
     };

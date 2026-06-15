@@ -6,6 +6,7 @@ namespace ntcpp {
     void wall::init(vec2 pos) {
         m_pos = pos;
         m_sprite.init("sprWall1Bot_0", {0.f, 0.f});
+        m_top_sprite.init("sprWall1Top_0", {0.f, 8.f});
 
         auto hitbox_down = get_global_hitbox();
         hitbox_down.y += 16.f;
@@ -19,5 +20,9 @@ namespace ntcpp {
         if (m_dont_draw) return;
 
         m_sprite.draw(renderer, m_pos);
+    }
+
+    void wall::draw_top(SDL_Renderer* renderer) {
+        m_top_sprite.draw(renderer, m_pos);
     }
 }

@@ -1,7 +1,6 @@
 #ifndef NUCLEAR_THRONE_CPP_OBJ_MANAGER_HPP
 #define NUCLEAR_THRONE_CPP_OBJ_MANAGER_HPP
 
-#include "../camera.hpp"
 #include "../../objects/hud/cursor/cursor.hpp"
 #include "../../objects/player/player.hpp"
 #include "../../objects/terrain/terrain.hpp"
@@ -38,6 +37,8 @@ namespace ntcpp {
         void draw(SDL_Renderer* renderer) {
             m_terrain.draw(renderer);
             m_player.draw(renderer);
+            m_terrain.draw_top_layer(renderer);
+
             m_cursor.draw(renderer);
         }
 

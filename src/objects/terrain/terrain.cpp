@@ -8,7 +8,6 @@ namespace ntcpp {
 
         // TODO я не обрабатываю ошибки спрайтов
         m_wall_out_sprite.init("sprWall1Out_0", {4.f, 12.f});
-        m_wall_top_sprite.init("sprWall1Top_0", {0.f, 8.f});
     }
 
     void terrain::create_wall(vec2 pos) {
@@ -84,8 +83,11 @@ namespace ntcpp {
         }
 
         for (auto& _wall : m_walls) _wall.draw(renderer);
+    }
+
+    void terrain::draw_top_layer(SDL_Renderer* renderer) {
         for (auto& _wall : m_walls) m_wall_out_sprite.draw(renderer, _wall.get_pos());
-        for (auto& _wall : m_walls) m_wall_top_sprite.draw(renderer, _wall.get_pos());
+        for (auto& _wall : m_walls) _wall.draw_top(renderer);
 
         for (auto& _wall_trans : m_wall_trans) {
             _wall_trans.draw(renderer);

@@ -9,7 +9,9 @@ namespace ntcpp {
     class wall {
     public:
         void init(vec2 pos);
+
         void draw(SDL_Renderer* renderer);
+        void draw_top(SDL_Renderer* renderer);
 
         vec2& get_pos() { return m_pos; }
         SDL_FRect& get_hitbox() { return m_hitbox; }
@@ -20,6 +22,7 @@ namespace ntcpp {
 
         vec2 m_pos = {};
         sprite m_sprite;
+        sprite m_top_sprite;
 
         bool m_dont_draw = false;
     };
