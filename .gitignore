@@ -69,3 +69,6 @@ Testing/
 # ntcpp assets
 assets/textures/*.json
 assets/textures/*.qoi
+
+assets/sounds/*.ogg
+assets/sounds/*.wav

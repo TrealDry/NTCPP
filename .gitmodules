@@ -7,3 +7,6 @@
 [submodule "vendor/qoi"]
 	path = vendor/qoi
 	url = https://github.com/phoboslab/qoi.git
+[submodule "vendor/SDL_mixer"]
+	path = vendor/SDL_mixer
+	url = https://github.com/libsdl-org/SDL_mixer.git

@@ -9,6 +9,7 @@
 
 #include <optional>
 
+// это лучше назвать игрой, а не окном
 namespace ntcpp {
     class window {
     public:

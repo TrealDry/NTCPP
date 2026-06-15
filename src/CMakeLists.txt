@@ -37,6 +37,8 @@ add_executable(${PROJECT_NAME}
         core/camera.cpp
         objects/terrain/wall_trans/wall_trans.cpp
         objects/terrain/wall_trans/wall_trans.hpp
+        core/manager/sound_manager.cpp
+        core/manager/sound_manager.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)

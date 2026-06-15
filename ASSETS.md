@@ -16,3 +16,13 @@ DepotDownloader.exe -app 242680 -depot 242681 -manifest 2045021080652060953 -qr
 python conv_textures.py /path/to/texture
 ```
 - Готово!
+
+# звуки
+
+- Самый быстрый путь извлечения звуков - открыть data.win версии *openbeta_win64* (в разделе бета версий в свойствах игры в стиме) через [UndertaleModTool](https://github.com/UnderminersTeam/UndertaleModTool/releases) (потому что UMT отказывается работать со звуками из 98 версии. если знаете как это решить, то сообщите мне).
+- Сверху нажимает *Scripts/Resource Exporters/ExportAllSounds.csx*, выбираем папку, нажимает *No* и *No* в диалоговых окнах.
+- Запустите скрипт *NTCPP/scripts/assembly_sounds.py*, и в качестве аргумента введите папку со звуками, и музыкой (папка mus в корневой папке nuclear throne openbeta_win64)
+```bash
+python assembly_sounds.py /path/to/sounds /path/to/mus
+```
+- Готово!

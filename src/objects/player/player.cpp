@@ -11,6 +11,8 @@
 
 #include <cmath>
 
+#include "../../core/manager/sound_manager.hpp"
+
 namespace ntcpp {
     std::optional<status> player::init() {
         animation idle;
@@ -30,6 +32,8 @@ namespace ntcpp {
         )) return stat;
 
         m_anim.init({&idle, &walk}, 0);
+
+        sound_manager::get_instance().play_audio("sndMutant1Wrld");
 
         return std::nullopt;
     }

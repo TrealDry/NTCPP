@@ -3,6 +3,7 @@
 #include "manager/obj_manager.hpp"
 #include "manager/debug_manager.hpp"
 #include "manager/input_manager.hpp"
+#include "manager/sound_manager.hpp"
 #include "manager/texture_manager.hpp"
 
 namespace ntcpp {
@@ -11,6 +12,7 @@ namespace ntcpp {
         m_renderer = renderer;
 
         if (auto stat = texture_manager::get_instance().init(m_renderer)) return stat;
+        if (auto stat = sound_manager::get_instance().init()) return stat;
         if (auto stat = obj_manager::get_instance().init()) return stat;
 
         return std::nullopt;
