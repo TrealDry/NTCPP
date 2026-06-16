@@ -24,6 +24,7 @@ namespace ntcpp {
         std::vector<floor>& get_floors() { return m_floors; }
         std::vector<floor_maker>& get_floor_makers() { return m_floor_makers; }
         std::vector<wall_trans>& get_wall_trans() { return m_wall_trans; }
+        std::vector<SDL_FRect>& get_dont_create_walls() { return m_dont_create_walls; }
 
         void create_wall(vec2 pos);
         void create_floor(vec2 pos);
@@ -35,6 +36,7 @@ namespace ntcpp {
         std::vector<floor> m_floors;
         std::vector<floor_maker> m_floor_makers;
         std::vector<wall_trans> m_wall_trans;
+        std::vector<SDL_FRect> m_dont_create_walls;
 
         sprite m_wall_out_sprite;
 

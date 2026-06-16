@@ -21,6 +21,8 @@ namespace ntcpp {
 
         void create_walls();
         void create_trans();
+
+        void create_single_wall();
     private:
         SDL_FRect m_hitbox = {0.f, 0.f, 32.f, 32.f};
 

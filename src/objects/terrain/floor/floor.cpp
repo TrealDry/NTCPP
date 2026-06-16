@@ -53,6 +53,38 @@ namespace ntcpp {
         }
     }
 
+    void floor::create_single_wall() {
+        if (SDL_rand(5) >= 1) return;
+
+        SDL_FRect result;
+        SDL_FRect glob_hitbox = get_global_hitbox();
+
+        // check for wall installation ban
+        for (auto& rect : obj_manager::get_instance().m_terrain.get_dont_create_walls()) {
+            if (SDL_GetRectIntersectionFloat(&glob_hitbox, &rect, &result)) {
+                return;
+            }
+        }
+
+        SDL_FRect player_glob_hitbox = obj_manager::get_instance().m_player.get_global_hitbox();
+        if (SDL_GetRectIntersectionFloat(&glob_hitbox, &player_glob_hitbox, &result)) {
+            return;
+        }
+
+        // TODO сделать проверку на врагов, сундуки, колбу, лежащего ассасина, и пропы
+
+        vec2 wall_pos{};
+
+        if (SDL_rand(1)) wall_pos.x = 0.f;
+        else wall_pos.x = 16.f;
+
+        if (SDL_rand(1)) wall_pos.y = 0.f;
+        else wall_pos.y = 16.f;
+
+        obj_manager::get_instance().m_terrain.create_wall(m_pos + wall_pos);
+        obj_manager::get_instance().m_terrain.get_dont_create_walls().push_back(m_hitbox);
+    }
+
     void floor::update() {
         ;
     }

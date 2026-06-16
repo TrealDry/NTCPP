@@ -69,6 +69,10 @@ namespace ntcpp {
             });
 
             std::for_each(m_floors.begin(), m_floors.end(), [](floor& _floor) {
+                _floor.create_single_wall();
+            });
+
+            std::for_each(m_floors.begin(), m_floors.end(), [](floor& _floor) {
                 _floor.create_trans();
             });
 
