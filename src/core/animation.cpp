@@ -1,6 +1,5 @@
 #include "animation.hpp"
 
-#include "camera.hpp"
 #include "../math/frect.hpp"
 
 namespace ntcpp {
@@ -17,10 +16,10 @@ namespace ntcpp {
         m_origin = origin;
 
         for (const auto& str_frame : anim_frames) {
-            auto sprite_data = m_tex_manager.get_sprite(std::string(str_frame));  // пизда оптимизации
+            auto sprite_data = sprite{};
 
-            if (sprite_data.has_value()) {
-                m_frames.push_back(sprite_data.value());
+            if (!sprite_data.init(std::string(str_frame), m_origin).has_value()) {
+                m_frames.push_back(sprite_data);
             } else {
                 return status{
                     en_status::NOT_OK,
@@ -50,34 +49,12 @@ namespace ntcpp {
                 }
             }
         }
+
+        if (m_frames[m_current_frame].get_h_flip() != m_h_flip)
+            m_frames[m_current_frame].set_h_flip(m_h_flip);
     }
 
     void animation::draw(SDL_Renderer* renderer, vec2 pos) {
-        sprite_data current_frame = m_frames[m_current_frame];
-
-        SDL_FRect dst;
-
-        vec2 pos_with_origin = camera::get_instance().world_coord_to_camera(pos - m_origin);
-
-        if (m_h_flip) {
-            dst = SDL_FRect{
-                pos_with_origin.x + current_frame.first.w, pos_with_origin.y,
-                -current_frame.first.w, current_frame.first.h
-            };
-        } else {
-            dst = SDL_FRect{
-                pos_with_origin.x, pos_with_origin.y,
-                current_frame.first.w, current_frame.first.h
-            };
-        }
-
-        auto texture = m_tex_manager.get_texture(current_frame.second);
-
-        if (!texture.has_value()) return;
-
-        SDL_RenderTexture(
-            renderer, texture.value(),
-            &current_frame.first, &dst
-        );
+        m_frames[m_current_frame].draw(renderer, pos, m_ignore_camera);
     }
 }

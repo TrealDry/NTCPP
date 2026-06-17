@@ -8,7 +8,7 @@
 namespace ntcpp {
     class sprite {
     public:
-        std::optional<status> init(const std::string& sprite_name, vec2 origin) {
+        std::optional<status> init(const std::string& sprite_name, vec2 origin, bool h_flip = false) {
             if (auto spr_data = texture_manager::get_instance().get_sprite(sprite_name))
                 m_sprite_data = spr_data.value();
             else {
@@ -46,16 +46,26 @@ namespace ntcpp {
                 };
             }
 
+            if (m_h_flip) {
+                dst.x += m_sprite_data.first.w;
+                dst.w = -dst.w;
+            }
+
             SDL_RenderTexture(
                 renderer, texture.value(),
                 &m_sprite_data.first, &dst
             );
         }
 
+        void set_h_flip(bool flip) { m_h_flip = flip; }
+        bool get_h_flip() { return m_h_flip; }
+
     private:
         sprite_data m_sprite_data;
         vec2* m_pos = nullptr;
         vec2 m_origin = {};
+
+        bool m_h_flip = false;
     };
 }
 

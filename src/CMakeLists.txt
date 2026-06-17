@@ -39,6 +39,8 @@ add_executable(${PROJECT_NAME}
         objects/terrain/wall_trans/wall_trans.hpp
         core/manager/sound_manager.cpp
         core/manager/sound_manager.hpp
+        objects/bullet/bullet.cpp
+        objects/bullet/bullet.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)

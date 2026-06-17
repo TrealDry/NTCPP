@@ -4,6 +4,8 @@
 #include <cmath>
 #include <complex>
 
+constexpr float c_PI = 3.1415927f;
+
 namespace ntcpp {
     struct vec2 {
         float x;
@@ -28,6 +30,20 @@ namespace ntcpp {
             float dx = to.x - from.x;
             float dy = to.y - from.y;
             return std::sqrtf(dx*dx + dy*dy);
+        }
+
+        static float get_angle(vec2 from, vec2 to) {
+            float dx = to.x - from.x;
+            float dy = to.y - from.y;
+            return std::atan2f(dy, dx);
+        }
+
+        static vec2 normalize_angle(float angle) {
+            return {std::cos(angle), std::sin(angle)};
+        }
+
+        static float deg_to_rad(float angle) {
+            return angle * (c_PI / 180.f);
         }
 
         vec2 operator+(const vec2& other) const {

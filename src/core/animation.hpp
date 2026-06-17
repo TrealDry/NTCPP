@@ -2,14 +2,16 @@
 #define NUCLEAR_THRONE_CPP_ANIMATION_HPP
 
 #include "manager/texture_manager.hpp"
-#include "obj_interface.hpp"
 #include "../math/vec2.hpp"
 #include "status.hpp"
 
 #include <vector>
 #include <optional>
 
+#include "sprite.hpp"
+
 constexpr float c_game_fps = 30.f;
+constexpr float c_standard_anim_fps = 13.5f;
 
 namespace ntcpp {
     class animation {
@@ -34,13 +36,13 @@ namespace ntcpp {
         void set_h_flip(bool flip) { m_h_flip = flip; }
         bool get_h_flip() { return m_h_flip; }
 
-        std::optional<sprite_data> get_frame_data(size_t frame) {
+        std::optional<sprite> get_frame_data(size_t frame) {
             if (m_frames.size() <= frame) return std::nullopt;
             return m_frames[frame];
         }
 
     private:
-        std::vector<sprite_data> m_frames;
+        std::vector<sprite> m_frames;
 
         vec2 m_origin = {};
 
@@ -57,6 +59,8 @@ namespace ntcpp {
 
         bool m_is_playing = false;
         bool m_loop = false;
+
+        bool m_ignore_camera = false;
     };
 }
 
