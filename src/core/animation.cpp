@@ -5,7 +5,7 @@
 namespace ntcpp {
     std::optional<status> animation::init(
         std::initializer_list<std::string_view> anim_frames,
-        float fps, bool loop, vec2 origin
+        float fps, bool loop, vec2 origin, float angle_deg, SDL_FlipMode flip
     ) {
         m_fps = fps;
         m_loop = loop;
@@ -18,7 +18,7 @@ namespace ntcpp {
         for (const auto& str_frame : anim_frames) {
             auto sprite_data = sprite{};
 
-            if (!sprite_data.init(std::string(str_frame), m_origin).has_value()) {
+            if (!sprite_data.init(std::string(str_frame), m_origin, angle_deg, flip).has_value()) {
                 m_frames.push_back(sprite_data);
             } else {
                 return status{
@@ -50,8 +50,8 @@ namespace ntcpp {
             }
         }
 
-        if (m_frames[m_current_frame].get_h_flip() != m_h_flip)
-            m_frames[m_current_frame].set_h_flip(m_h_flip);
+        if (m_frames[m_current_frame].get_flip() != m_flip)
+            m_frames[m_current_frame].set_flip(m_flip);
     }
 
     void animation::draw(SDL_Renderer* renderer, vec2 pos) {

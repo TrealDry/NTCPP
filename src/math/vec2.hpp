@@ -41,6 +41,10 @@ namespace ntcpp {
             return {std::cos(angle), std::sin(angle)};
         }
 
+        static float rad_to_deg(float angle) {
+            return angle * (180.f / c_PI);
+        }
+
         static float deg_to_rad(float angle) {
             return angle * (c_PI / 180.f);
         }

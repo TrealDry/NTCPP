@@ -4,6 +4,7 @@
 #include <optional>
 
 #include "SDL3/SDL_rect.h"
+#include "../../math/circle.hpp"
 
 namespace ntcpp {
     class wall;
@@ -13,6 +14,7 @@ namespace ntcpp {
         collision_manager() = delete;
 
         static std::optional<std::pair<wall*, SDL_FRect>> wall_collided(SDL_FRect hitbox);
+        static std::optional<wall*> wall_circle_collided(circle hitbox);
         static bool floor_collided(SDL_FRect hitbox);
 
         static bool has_wall(vec2 pos);

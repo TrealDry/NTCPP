@@ -17,14 +17,14 @@ namespace ntcpp {
 
         size_t get_current_anim_index() { return m_current_animation; }
 
-        void set_h_flip(bool flip) { m_h_flip = flip; m_animations[m_current_animation].set_h_flip(m_h_flip); }
-        bool get_h_flip() { return m_h_flip; }
+        void set_flip(SDL_FlipMode flip) { m_flip = flip; m_animations[m_current_animation].set_flip(m_flip); }
+        SDL_FlipMode get_flip() { return m_flip; }
 
     private:
         size_t m_current_animation = 0;
         std::vector<animation> m_animations;
 
-        bool m_h_flip = false;
+        SDL_FlipMode m_flip = SDL_FLIP_NONE;
     };
 }
 

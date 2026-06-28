@@ -28,6 +28,6 @@ namespace ntcpp {
 
     void animation_manager::change_anim(size_t new_anim_index) {
         m_current_animation = new_anim_index;
-        m_animations[m_current_animation].set_h_flip(m_h_flip);
+        m_animations[m_current_animation].set_flip(m_flip);
     }
 }

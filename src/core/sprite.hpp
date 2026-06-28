@@ -8,7 +8,10 @@
 namespace ntcpp {
     class sprite {
     public:
-        std::optional<status> init(const std::string& sprite_name, vec2 origin, bool h_flip = false) {
+        std::optional<status> init(
+            const std::string& sprite_name, vec2 origin,
+            float angle_deg = 0.f, SDL_FlipMode flip = SDL_FLIP_NONE
+        ) {
             if (auto spr_data = texture_manager::get_instance().get_sprite(sprite_name))
                 m_sprite_data = spr_data.value();
             else {
@@ -17,7 +20,10 @@ namespace ntcpp {
                     "sprite " + sprite_name + " not found"
                 };
             }
+
+            m_angle_deg = angle_deg;
             m_origin = origin;
+            m_flip = flip;
 
             return std::nullopt;
         }
@@ -46,26 +52,28 @@ namespace ntcpp {
                 };
             }
 
-            if (m_h_flip) {
-                dst.x += m_sprite_data.first.w;
-                dst.w = -dst.w;
-            }
+            SDL_FPoint center;
+            center.x = m_origin.x;
+            center.y = m_origin.y;
 
-            SDL_RenderTexture(
+            SDL_RenderTextureRotated(
                 renderer, texture.value(),
-                &m_sprite_data.first, &dst
+                &m_sprite_data.first, &dst,
+                m_angle_deg, &center, m_flip
             );
         }
 
-        void set_h_flip(bool flip) { m_h_flip = flip; }
-        bool get_h_flip() { return m_h_flip; }
+        void set_flip(SDL_FlipMode flip) { m_flip = flip; }
+        SDL_FlipMode get_flip() { return m_flip; }
 
     private:
         sprite_data m_sprite_data;
         vec2* m_pos = nullptr;
         vec2 m_origin = {};
 
-        bool m_h_flip = false;
+        float m_angle_deg = 0.f;
+
+        SDL_FlipMode m_flip = SDL_FLIP_NONE;
     };
 }
 

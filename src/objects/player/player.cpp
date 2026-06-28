@@ -66,10 +66,10 @@ namespace ntcpp {
             sound_manager::get_instance().play_audio("sndPistol");
 
             bullet b{};
-            b.init(m_position, vec2::normalize_angle(vec2::get_angle(
+            b.init(m_position, vec2::get_angle(
                 camera::get_instance().world_coord_to_camera(m_position),
                 window::get_instance().m_mouse_pos
-            )), 1);
+            ), 1);
 
             m_bullet_system->add_bullet(b);
         }
@@ -120,9 +120,9 @@ namespace ntcpp {
 
     void player::change_flip() {
         if (window::get_instance().m_mouse_pos.x < camera::get_instance().world_coord_to_camera(m_position.x, false)) {
-            m_anim.set_h_flip(true);
+            m_anim.set_flip(SDL_FLIP_HORIZONTAL);
         } else {
-            m_anim.set_h_flip(false);
+            m_anim.set_flip(SDL_FLIP_NONE);
         }
     }
 

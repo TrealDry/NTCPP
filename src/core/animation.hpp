@@ -20,7 +20,7 @@ namespace ntcpp {
 
         std::optional<status> init(
             std::initializer_list<std::string_view> anim_frames,
-            float fps, bool loop, vec2 origin
+            float fps, bool loop, vec2 origin, float angle_deg = 0.f, SDL_FlipMode flip = SDL_FLIP_NONE
         );
 
         void update();
@@ -33,8 +33,8 @@ namespace ntcpp {
 
         bool is_playing() { return m_is_playing; }
 
-        void set_h_flip(bool flip) { m_h_flip = flip; }
-        bool get_h_flip() { return m_h_flip; }
+        void set_flip(SDL_FlipMode flip) { m_flip = flip; }
+        SDL_FlipMode get_flip() { return m_flip; }
 
         std::optional<sprite> get_frame_data(size_t frame) {
             if (m_frames.size() <= frame) return std::nullopt;
@@ -55,7 +55,7 @@ namespace ntcpp {
 
         texture_manager& m_tex_manager;
 
-        bool m_h_flip = false;
+        SDL_FlipMode m_flip = SDL_FLIP_NONE;
 
         bool m_is_playing = false;
         bool m_loop = false;
