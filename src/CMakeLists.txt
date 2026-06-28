@@ -41,6 +41,8 @@ add_executable(${PROJECT_NAME}
         core/manager/sound_manager.hpp
         objects/bullet/bullet.cpp
         objects/bullet/bullet.hpp
+        objects/bullet/bullet_system.cpp
+        objects/bullet/bullet_system.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)

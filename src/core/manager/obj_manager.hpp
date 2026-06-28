@@ -4,6 +4,7 @@
 #include "../../objects/hud/cursor/cursor.hpp"
 #include "../../objects/player/player.hpp"
 #include "../../objects/terrain/terrain.hpp"
+#include "../../objects/bullet/bullet_system.hpp"
 
 namespace ntcpp {
     class obj_manager {
@@ -11,6 +12,7 @@ namespace ntcpp {
         player m_player;
         cursor m_cursor;
         terrain m_terrain;
+        bullet_system m_bullet_system;
 
     public:
         static obj_manager& get_instance() {
@@ -22,9 +24,10 @@ namespace ntcpp {
         void operator=(obj_manager const&) = delete;
 
         std::optional<status> init() {
-            if (auto stat = m_player.init()) return stat;
-            if (auto stat = m_cursor.init()) return stat;
             m_terrain.init();
+
+            if (auto stat = m_player.init(&m_bullet_system)) return stat;
+            if (auto stat = m_cursor.init()) return stat;
 
             return std::nullopt;
         }
@@ -32,11 +35,14 @@ namespace ntcpp {
         void update() {
             m_terrain.update();
             m_player.update();
+            m_bullet_system.update();
         }
 
         void draw(SDL_Renderer* renderer) {
             m_terrain.draw(renderer);
             m_player.draw(renderer);
+            m_bullet_system.draw(renderer);
+
             m_terrain.draw_top_layer(renderer);
 
             m_cursor.draw(renderer);

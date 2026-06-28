@@ -1,15 +1,18 @@
 #include "bullet.hpp"
 
 namespace ntcpp {
-    void bullet::init(vec2 pos, vec2 dir, unsigned char team) {
+    void bullet::init(vec2 pos, vec2 dir, unsigned char team = 1) {
         m_pos = pos;
         m_dir = dir;
         m_team = team;
 
         m_anim.init(
-            {"sprBullet1_0", "sprBullet1_1"}, 13.5f,
-            c_standard_anim_fps, {6.f, 8.f}
+            {"sprBullet1_0", "sprBullet1_1"},
+            c_standard_anim_fps, false, {6.f, 8.f}
         );
+
+        m_anim.play();
+        m_anim.update();
     }
 
     void bullet::update() {

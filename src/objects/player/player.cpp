@@ -1,20 +1,18 @@
 #include "player.hpp"
 #include "SDL3/SDL_render.h"
 
-#include "../terrain/wall/wall.hpp"
-
 #include "../../core/window.hpp"
 #include "../../core/animation.hpp"
+
 #include "../../core/manager/input_manager.hpp"
 #include "../../core/manager/collision_manager.hpp"
 #include "../../core/manager/debug_manager.hpp"
+#include "../../core/manager/sound_manager.hpp"
 
 #include <cmath>
 
-#include "../../core/manager/sound_manager.hpp"
-
 namespace ntcpp {
-    std::optional<status> player::init() {
+    std::optional<status> player::init(bullet_system* _bullet_system) {
         animation idle;
         animation walk;
 
@@ -34,6 +32,8 @@ namespace ntcpp {
         m_anim.init({&idle, &walk}, 0);
 
         sound_manager::get_instance().play_audio("sndMutant1Wrld");
+
+        m_bullet_system = _bullet_system;
 
         return std::nullopt;
     }
@@ -64,6 +64,14 @@ namespace ntcpp {
     void player::fire() {
         if (input_manager::get_instance().get_key_status(en_keys::FIRE) == 1) {
             sound_manager::get_instance().play_audio("sndPistol");
+
+            bullet b{};
+            b.init(m_position, vec2::normalize_angle(vec2::get_angle(
+                camera::get_instance().world_coord_to_camera(m_position),
+                window::get_instance().m_mouse_pos
+            )), 1);
+
+            m_bullet_system->add_bullet(b);
         }
     }
 

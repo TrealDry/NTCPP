@@ -7,12 +7,14 @@
 #include "../../math/frect.hpp"
 #include "../../math/vec2.hpp"
 
+#include "../bullet/bullet_system.hpp"
+
 #include <optional>
 
 namespace ntcpp {
     class player : public obj_interface {
     public:
-        std::optional<status> init();
+        std::optional<status> init(bullet_system* _bullet_system);
 
         void update() override;
         void draw(SDL_Renderer* renderer) override;
@@ -34,6 +36,8 @@ namespace ntcpp {
         animation_manager m_anim;
 
         bool m_on_move = false;
+
+        bullet_system* m_bullet_system = nullptr;
 
     private:
         inline void fire();

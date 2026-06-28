@@ -2,7 +2,6 @@
 #define NUCLEAR_THRONE_CPP_VEC2_HPP
 
 #include <cmath>
-#include <complex>
 
 constexpr float c_PI = 3.1415927f;
 
