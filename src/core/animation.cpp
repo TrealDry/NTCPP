@@ -13,12 +13,10 @@ namespace ntcpp {
         m_timer_step = fps / c_game_fps;
         m_timer_limit = fps / 10.f;
 
-        m_origin = origin;
-
         for (const auto& str_frame : anim_frames) {
             auto sprite_data = sprite{};
 
-            if (!sprite_data.init(std::string(str_frame), m_origin, angle_deg, flip).has_value()) {
+            if (!sprite_data.init(std::string(str_frame), origin, angle_deg, flip).has_value()) {
                 m_frames.push_back(sprite_data);
             } else {
                 return status{
@@ -49,12 +47,31 @@ namespace ntcpp {
                 }
             }
         }
-
-        if (m_frames[m_current_frame].get_flip() != m_flip)
-            m_frames[m_current_frame].set_flip(m_flip);
     }
 
     void animation::draw(SDL_Renderer* renderer, vec2 pos) {
         m_frames[m_current_frame].draw(renderer, pos, m_ignore_camera);
+    }
+
+    void animation::set_flip(SDL_FlipMode flip) {
+        m_flip = flip;
+        std::for_each(
+            m_frames.begin(), m_frames.end(),
+            [flip](auto& frame){ frame.set_flip(flip); }
+        );
+    }
+
+    void animation::set_angle(float angle_deg) {
+        std::for_each(
+            m_frames.begin(), m_frames.end(),
+            [angle_deg](auto& frame){ frame.set_angle(angle_deg); }
+        );
+    }
+
+    void animation::set_origin(vec2 origin) {
+        std::for_each(
+            m_frames.begin(), m_frames.end(),
+            [origin](auto& frame){ frame.set_origin(origin); }
+        );
     }
 }

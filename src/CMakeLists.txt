@@ -43,6 +43,10 @@ add_executable(${PROJECT_NAME}
         objects/bullet/bullet.hpp
         objects/bullet/bullet_system.cpp
         objects/bullet/bullet_system.hpp
+        objects/weapon/weapon.cpp
+        objects/weapon/weapon.hpp
+        objects/weapon/weapon_container.cpp
+        objects/weapon/weapon_container.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)

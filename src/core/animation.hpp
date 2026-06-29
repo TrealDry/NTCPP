@@ -33,8 +33,11 @@ namespace ntcpp {
 
         bool is_playing() { return m_is_playing; }
 
-        void set_flip(SDL_FlipMode flip) { m_flip = flip; }
+        void set_flip(SDL_FlipMode flip);
         SDL_FlipMode get_flip() { return m_flip; }
+
+        void set_angle(float angle_deg);
+        void set_origin(vec2 origin);
 
         std::optional<sprite> get_frame_data(size_t frame) {
             if (m_frames.size() <= frame) return std::nullopt;
@@ -43,8 +46,6 @@ namespace ntcpp {
 
     private:
         std::vector<sprite> m_frames;
-
-        vec2 m_origin = {};
 
         float m_timer = 0.f;
         float m_timer_step = 0.f;

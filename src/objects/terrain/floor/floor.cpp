@@ -82,7 +82,7 @@ namespace ntcpp {
         else wall_pos.y = 16.f;
 
         obj_manager::get_instance().m_terrain.create_wall(m_pos + wall_pos);
-        obj_manager::get_instance().m_terrain.get_dont_create_walls().push_back(m_hitbox);
+        obj_manager::get_instance().m_terrain.get_dont_create_walls().push_back(get_global_hitbox());
     }
 
     void floor::update() {

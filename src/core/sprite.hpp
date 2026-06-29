@@ -66,6 +66,11 @@ namespace ntcpp {
         void set_flip(SDL_FlipMode flip) { m_flip = flip; }
         SDL_FlipMode get_flip() { return m_flip; }
 
+        void set_angle(float angle_deg) { m_angle_deg = angle_deg; }
+        void set_origin(vec2 origin) { m_origin = origin; }
+
+        sprite_data get_sprite_data() { return m_sprite_data; }
+
     private:
         sprite_data m_sprite_data;
         vec2* m_pos = nullptr;

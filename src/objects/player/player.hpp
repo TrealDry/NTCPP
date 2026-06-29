@@ -14,6 +14,10 @@
 namespace ntcpp {
     class player : public obj_interface {
     public:
+        float m_weapon_kick = 0.f;
+        float m_swap_move = 0.f;
+
+    public:
         std::optional<status> init(bullet_system* _bullet_system);
 
         void update() override;
@@ -24,6 +28,7 @@ namespace ntcpp {
         void move_and_collide(float step, bool is_y);
 
         vec2 get_pos() { return m_position; }
+        animation_manager& get_anim_manager() { return m_anim; }
 
     private:
         SDL_FRect m_hitbox = {-4.f, -4.f, 8.f, 10.f};
@@ -44,6 +49,7 @@ namespace ntcpp {
         inline void movement();
         inline void change_flip();
         inline void anim_change();
+        inline void wkick_dec();
     };
 }
 

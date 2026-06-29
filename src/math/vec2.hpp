@@ -31,7 +31,7 @@ namespace ntcpp {
             return std::sqrtf(dx*dx + dy*dy);
         }
 
-        static float get_angle(vec2 from, vec2 to) {
+        static float get_angle(vec2 from, vec2 to) {  // ret rad
             float dx = to.x - from.x;
             float dy = to.y - from.y;
             return std::atan2f(dy, dx);

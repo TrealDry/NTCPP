@@ -71,6 +71,7 @@ namespace ntcpp {
                 window::get_instance().m_mouse_pos
             ), 1);
 
+            m_weapon_kick = 2.f;
             m_bullet_system->add_bullet(b);
         }
     }
@@ -136,10 +137,15 @@ namespace ntcpp {
         }
     }
 
+    void player::wkick_dec() {
+        m_weapon_kick = std::max(m_weapon_kick - 1.f, 0.f);
+    }
+
     void player::update() {
         m_anim.update();
 
         movement();
+        wkick_dec();
         fire();
         change_flip();
         anim_change();
