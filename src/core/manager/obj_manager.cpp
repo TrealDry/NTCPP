@@ -1,5 +1,7 @@
 #include "obj_manager.hpp"
 
+#include "../window.hpp"
+
 namespace ntcpp {
     std::optional<status> obj_manager::init() {
         m_terrain.init();
@@ -20,12 +22,13 @@ namespace ntcpp {
 
     void obj_manager::draw(SDL_Renderer* renderer) {
         m_terrain.draw(renderer);
-        m_player.draw(renderer);
+
         m_weapon_container.draw(renderer);
+        m_player.draw(renderer);
+        m_weapon_container.draw_top_layer(renderer);
+
         m_bullet_system.draw(renderer);
-
         m_terrain.draw_top_layer(renderer);
-
         m_cursor.draw(renderer);
     }
 }

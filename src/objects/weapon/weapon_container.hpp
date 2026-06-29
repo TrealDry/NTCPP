@@ -14,6 +14,7 @@ namespace ntcpp {
 
         void update() override;
         void draw(SDL_Renderer* renderer) override;
+        void draw_top_layer(SDL_Renderer* renderer);
 
     private:
         std::vector<weapon> m_weapons;

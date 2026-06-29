@@ -12,6 +12,8 @@ namespace ntcpp {
 
         void update() override;
         void draw(SDL_Renderer* renderer) override;
+
+        bool is_on_hand() { return m_on_hand; }
     private:
         vec2 m_pos = {};
         vec2 m_origin = {};
