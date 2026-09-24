@@ -22,3 +22,18 @@ add_library(vendor INTERFACE)
 target_link_libraries(vendor INTERFACE SDL3::SDL3 SDL3_mixer::SDL3_mixer nlohmann_json::nlohmann_json)
 
 target_include_directories(vendor INTERFACE qoi)
+
+target_include_directories(vendor INTERFACE
+        imgui
+)
+
+target_sources(vendor INTERFACE
+        imgui/imgui.cpp
+        imgui/imgui_draw.cpp
+        imgui/imgui_tables.cpp
+        imgui/imgui_widgets.cpp
+        imgui/backends/imgui_impl_sdlrenderer3.cpp
+        imgui/backends/imgui_impl_sdlrenderer3.h
+        imgui/backends/imgui_impl_sdl3.cpp
+        imgui/backends/imgui_impl_sdl3.h
+)

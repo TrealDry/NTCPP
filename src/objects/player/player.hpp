@@ -28,6 +28,7 @@ namespace ntcpp {
         void move_and_collide(float step, bool is_y);
 
         vec2 get_pos() { return m_position; }
+        vec2 get_velocity() { return m_velocity; }
         animation_manager& get_anim_manager() { return m_anim; }
 
     private:

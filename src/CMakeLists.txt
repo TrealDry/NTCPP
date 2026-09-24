@@ -47,6 +47,10 @@ add_executable(${PROJECT_NAME}
         objects/weapon/weapon.hpp
         objects/weapon/weapon_container.cpp
         objects/weapon/weapon_container.hpp
+        objects/enemy/enemy.cpp
+        objects/enemy/enemy.hpp
+        objects/enemy/types/bandit/bandit.cpp
+        objects/enemy/types/bandit/bandit.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)

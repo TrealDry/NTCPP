@@ -11,6 +11,8 @@
 
 #include <cmath>
 
+constexpr float c_max_speed = 4.f;
+
 namespace ntcpp {
     std::optional<status> player::init(bullet_system* _bullet_system) {
         animation idle;
@@ -80,28 +82,35 @@ namespace ntcpp {
         auto& input_manager = input_manager::get_instance();
 
         vec2 input;
-        if (input_manager.get_key_status(en_keys::UP)) input.y -= 1;
-        if (input_manager.get_key_status(en_keys::DOWN)) input.y += 1;
-        if (input_manager.get_key_status(en_keys::LEFT)) input.x -= 1;
-        if (input_manager.get_key_status(en_keys::RIGHT)) input.x += 1;
+        if (input_manager.get_key_status(en_keys::UP) == 1
+         || input_manager.get_key_status(en_keys::UP) == 2)    input.y -= 1.f;
+        if (input_manager.get_key_status(en_keys::DOWN) == 1
+         || input_manager.get_key_status(en_keys::DOWN) == 2)  input.y += 1.f;
+        if (input_manager.get_key_status(en_keys::LEFT) == 1
+         || input_manager.get_key_status(en_keys::LEFT) == 2)  input.x -= 1.f;
+        if (input_manager.get_key_status(en_keys::RIGHT) == 1
+         || input_manager.get_key_status(en_keys::RIGHT) == 2) input.x += 1.f;
 
-        if (input.x != 0 || input.y != 0) {  // key move
-            m_velocity = vec2::normalize(input) * m_speed;
-        } else {  // friction
-            if (m_velocity.x != 0.f) {
-                if (m_velocity.x < 0.f) {
-                    m_velocity.x = std::fmin(m_velocity.x + m_friction, 0.f);
-                } else {
-                    m_velocity.x = std::fmax(m_velocity.x - m_friction, 0.f);
-                }
-            }
-            if (m_velocity.y != 0.f) {
-                if (m_velocity.y < 0.f) {
-                    m_velocity.y = std::fmin(m_velocity.y + m_friction, 0.f);
-                } else {
-                    m_velocity.y = std::fmax(m_velocity.y - m_friction, 0.f);
-                }
-            }
+        input = vec2::normalize(input);
+
+        m_velocity.x += input.x * m_speed;
+        m_velocity.y += input.y * m_speed;
+
+        // speed limit
+        float current_speed = std::hypot(m_velocity.x, m_velocity.y);
+        if (current_speed > c_max_speed) {
+            float scale = c_max_speed / current_speed;
+            m_velocity.x *= scale;
+            m_velocity.y *= scale;
+            current_speed = c_max_speed;
+        }
+
+        // friction
+        if (current_speed > 0.f) {
+            float new_speed = std::fmax(0.f, current_speed - m_friction);
+            float friction_scale = new_speed / current_speed;
+            m_velocity.x *= friction_scale;
+            m_velocity.y *= friction_scale;
         }
 
         // check move
@@ -110,10 +119,6 @@ namespace ntcpp {
         } else {
             m_on_move = true;
         }
-
-        // speed limit
-        if (std::abs(m_velocity.x) > 3.f) m_velocity.x = 3.f * (m_velocity.x < 0.f ? -1.f : 1.f);
-        if (std::abs(m_velocity.y) > 3.f) m_velocity.y = 3.f * (m_velocity.y < 0.f ? -1.f : 1.f);
 
         move_and_collide(m_velocity.x, false);
         move_and_collide(m_velocity.y, true);

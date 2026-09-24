@@ -6,6 +6,10 @@
 
 #include <SDL3_mixer/SDL_mixer.h>
 
+#include "imgui.h"
+#include "backends/imgui_impl_sdl3.h"
+#include "backends/imgui_impl_sdlrenderer3.h"
+
 #include "core/window.hpp"
 
 constexpr int c_window_width  = 320;
@@ -39,6 +43,14 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[]) {
     ) {
         SDL_Log("couldn't create window/renderer: %s", SDL_GetError());
     }
+
+    // imgui init
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGui::StyleColorsDark();
+
+    ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
+    ImGui_ImplSDLRenderer3_Init(renderer);
 
     if (!MIX_Init()) {
         SDL_Log("mixer error: %s", SDL_GetError());
@@ -100,6 +112,9 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     };
 
     SDL_RenderTexture(renderer, render_target, nullptr, &dst);
+
+    ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), renderer);
+
     SDL_RenderPresent(renderer);
 
     // fps limit
@@ -113,6 +128,8 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
 }
 
 SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event) {
+    ImGui_ImplSDL3_ProcessEvent(event);
+
     if (event->type == SDL_EVENT_QUIT) {
         return SDL_APP_SUCCESS;
     }
@@ -178,5 +195,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event) {
 }
 
 void SDL_AppQuit(void* appstate, SDL_AppResult result) {
-    ;
+    ImGui_ImplSDLRenderer3_Shutdown();
+    ImGui_ImplSDL3_Shutdown();
+    ImGui::DestroyContext();
 }

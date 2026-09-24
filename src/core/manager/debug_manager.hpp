@@ -16,6 +16,8 @@ namespace ntcpp {
         void operator=(debug_manager const&) = delete;
 
         void update();
+
+        void imgui_handler();
     private:
         debug_manager() {}
     };
