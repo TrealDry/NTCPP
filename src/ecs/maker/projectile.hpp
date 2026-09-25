@@ -18,6 +18,7 @@ void make_projectile(entt::registry& reg, float x, float y, float angle_deg) {
     reg.emplace<Position>(entity, x, y);
     reg.emplace<Movement>(entity, 0.f, 0.f, 16.f, 16.f, 0.f, false);
     reg.emplace<WantMove>(entity, 0.f, 0.f);
+    reg.emplace<JustMove>(entity);
     reg.emplace<Health>(entity, 1, 1, true);
     reg.emplace<CircleHitbox>(entity, ntcpp::circle{8.f, 0.f, 1.f});
     reg.emplace<Sprite>(entity, "sprBullet1_1", SDL_FPoint{6.f, 8.f}, -1, SDL_FLIP_NONE);

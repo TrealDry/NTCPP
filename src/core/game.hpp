@@ -22,6 +22,8 @@ namespace ntcpp {
         vec2 m_mouse_pos = {};
         std::unordered_map<en_mouse_buttons, bool> m_mouse_buttons = {};
 
+        int current_fps = 0;
+
     public:
         static game& get_instance() {
             static game instance;

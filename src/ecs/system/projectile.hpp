@@ -14,11 +14,12 @@
 class projectile_system : public ecs_system {
 public:
     void update(entt::registry& reg) override {
-        auto view = reg.view<Position, Projectile, Movement, WantMove, Health, CircleHitbox>();
+        auto view = reg.view<Position, Projectile, Movement, WantMove, Health, CircleHitbox, Sprite>();
 
         view.each([&](
             auto entity, const Position& pos, const Projectile& proj,
-            Movement& mov, WantMove& want_mov, Health& health, const CircleHitbox& hitbox
+            Movement& mov, WantMove& want_mov, Health& health, const CircleHitbox& hitbox,
+            Sprite& spr
         ) {
             if (!health.is_alive) {
                 mov.vel_x = 0.f;
@@ -42,9 +43,7 @@ public:
                 health.is_alive = false;
                 health.value = 0;
 
-                if (reg.any_of<Sprite>(entity)) {
-                    reg.get<Sprite>(entity).hide = true;
-                }
+                spr.hide = true;
             }
         });
     }

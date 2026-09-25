@@ -15,4 +15,5 @@ struct Movement {
     bool on_move;
 };
 
+struct JustMove {};
 struct MoveAndCollideWall {};

@@ -22,6 +22,8 @@ public:
         SDL_Renderer* render = ntcpp::game::get_instance().m_renderer;
 
         view.each([&](auto entity, const Position& pos, const Sprite& spr) {
+            if (spr.hide) return;
+
             auto texture = ntcpp::texture_manager::get_instance().get_texture(spr.texture_id);
             if (!texture.has_value()) return;
 

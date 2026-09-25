@@ -1,7 +1,8 @@
 #include "ecs_manager.hpp"
 
+#include "system/just_move.hpp"
 #include "system/health_dead.hpp"
-#include "system/movement.hpp"
+#include "system/velocity_calc.hpp"
 #include "system/sprite_render.hpp"
 #include "system/move_and_collide_wall.hpp"
 #include "system/projectile.hpp"
@@ -11,7 +12,8 @@ void ecs_manager::init() {
     m_update_systems.push_back(std::make_unique<health_dead_system>());
     m_update_systems.push_back(std::make_unique<projectile_system>());
 
-    m_update_systems.push_back(std::make_unique<movement_system>());
+    m_update_systems.push_back(std::make_unique<velocity_calc_system>());
+    m_update_systems.push_back(std::make_unique<just_move_system>());
     m_update_systems.push_back(std::make_unique<move_and_collide_wall_system>());
 
     // draw

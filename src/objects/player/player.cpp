@@ -75,10 +75,12 @@ namespace ntcpp {
                 game::get_instance().m_mouse_pos
             );
 
-            make_projectile(
-                ecs_manager::get_instance().get_registry(),
-                m_position.x, m_position.y, angle_deg
-            );
+            for (int i = 0; i < 100; i++) {
+                make_projectile(
+                    ecs_manager::get_instance().get_registry(),
+                    m_position.x, m_position.y, angle_deg - SDL_randf()
+                );
+            }
 
             m_weapon_kick = 2.f;
         }

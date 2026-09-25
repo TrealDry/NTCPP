@@ -54,7 +54,7 @@ add_executable(${PROJECT_NAME}
         ecs/ecs_manager.cpp
         ecs/ecs_manager.hpp
         ecs/system/template/ecs_system.hpp
-        ecs/system/movement.hpp
+        ecs/system/velocity_calc.hpp
         ecs/system/move_and_collide_wall.hpp
         ecs/component/position.hpp
         ecs/component/movement.hpp
@@ -67,6 +67,7 @@ add_executable(${PROJECT_NAME}
         ecs/system/projectile.hpp
         ecs/system/health_dead.hpp
         ecs/maker/projectile.hpp
+        ecs/system/just_move.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)

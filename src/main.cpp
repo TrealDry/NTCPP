@@ -20,6 +20,9 @@ constexpr uint64_t c_target_ns = 1'000'000'000ULL / 30;
 constexpr char c_title[] = "Can you reach nuclear throne?";
 constexpr char c_version[] = "0.1.0";
 
+uint64_t last_time;
+int frame_count = 0;
+
 SDL_Window* window;
 SDL_Renderer* renderer;
 
@@ -116,6 +119,14 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), renderer);
 
     SDL_RenderPresent(renderer);
+
+    // fps counter
+    frame_count++;
+    if (auto current_time = SDL_GetTicks(); current_time - last_time >= 1000) {
+        win.current_fps = frame_count;
+        frame_count = 0;
+        last_time = current_time;
+    }
 
     // fps limit
     uint64_t elapsed = SDL_GetTicksNS() - start_time;
