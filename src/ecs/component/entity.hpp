@@ -4,7 +4,7 @@
 struct Health {
     int value;
     int max_value;
-    bool is_dead;
+    bool is_alive;
 };
 
 struct Entity {};

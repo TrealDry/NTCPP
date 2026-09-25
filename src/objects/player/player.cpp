@@ -9,6 +9,9 @@
 #include "../../core/manager/debug_manager.hpp"
 #include "../../core/manager/sound_manager.hpp"
 
+#include "../../ecs/ecs_manager.hpp"
+#include "../../ecs/maker/projectile.hpp"
+
 #include <cmath>
 
 constexpr float c_max_speed = 4.f;
@@ -64,17 +67,20 @@ namespace ntcpp {
     }
 
     void player::fire() {
-        if (input_manager::get_instance().get_key_status(en_keys::FIRE) == 1) {
+        if (input_manager::get_instance().get_key_status(en_keys::FIRE) == 2) {
             sound_manager::get_instance().play_audio("sndPistol");
 
-            bullet b{};
-            b.init(m_position, vec2::get_angle(
+            auto angle_deg = vec2::get_angle(
                 camera::get_instance().world_coord_to_camera(m_position),
                 game::get_instance().m_mouse_pos
-            ), 1);
+            );
+
+            make_projectile(
+                ecs_manager::get_instance().get_registry(),
+                m_position.x, m_position.y, angle_deg
+            );
 
             m_weapon_kick = 2.f;
-            m_bullet_system->add_bullet(b);
         }
     }
 

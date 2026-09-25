@@ -14,18 +14,19 @@ struct Sprite {
     float rotation_deg;
     bool ignore_camera;
     char z_layer;
+    bool hide;
 
     Sprite(
         const std::string& name,
-        SDL_FPoint offset,
-        char z_layer,
+        SDL_FPoint offset = {0.f, 0.f},
+        char z_layer = 0,
         SDL_FlipMode flip = SDL_FLIP_NONE,
         float rotation_deg = 0.f,
         SDL_FPoint center = {0.f, 0.f},
         bool ignore_camera = false
     ) :
         texture_rect(), offset(offset), texture_id(0), flip(flip), center(center),
-        rotation_deg(rotation_deg), ignore_camera(ignore_camera), z_layer(z_layer)
+        rotation_deg(rotation_deg), ignore_camera(ignore_camera), z_layer(z_layer), hide(false)
     {
         if (auto spr_data = ntcpp::texture_manager::get_instance().get_sprite(name)) {
             texture_rect = spr_data->first;

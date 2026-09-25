@@ -8,15 +8,6 @@
 #include "../component/movement.hpp"
 #include "../component/hitbox.hpp"
 
-static SDL_FRect get_global_hitbox(const Position& pos, const RectHitbox& hitbox) {  // TODO перенести в менеджер
-    return {
-        hitbox.rect.x + pos.x,
-        hitbox.rect.y + pos.y,
-        hitbox.rect.w,
-        hitbox.rect.h
-    };
-}
-
 class move_and_collide_wall_system : public ecs_system {
 public:
     void update(entt::registry& reg) override {
@@ -30,7 +21,9 @@ public:
             if (i == 0) {step = mov.vel_x; pos.x += mov.vel_x;}
             else        {step = mov.vel_y; pos.y += mov.vel_y;}
 
-            auto wall_collided = ntcpp::collision_manager::wall_collided(get_global_hitbox(pos, hitbox));
+            auto wall_collided = ntcpp::collision_manager::wall_collided(
+                ntcpp::collision_manager::get_global_hitbox(pos.x, pos.y, hitbox.rect)
+            );
 
             if (wall_collided) {
                 float overlapX = wall_collided.value().second.w;

@@ -21,6 +21,14 @@ namespace ntcpp {
         static bool has_wall(vec2 pos);
         static bool has_floor(vec2 pos);
         static bool has_wall_trans(vec2 pos);
+
+        static SDL_FRect get_global_hitbox(float global_x, float global_y, SDL_FRect hitbox) {
+            return {hitbox.x + global_x, hitbox.y + global_y, hitbox.w, hitbox.h};
+        }
+
+        static circle get_global_hitbox(float global_x, float global_y, circle hitbox) {
+            return {hitbox.x + global_x, hitbox.y + global_y, hitbox.r};
+        }
     };
 }
 

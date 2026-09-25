@@ -19,6 +19,8 @@ class ecs_manager {
         void update();
         void draw();
 
+        entt::registry& get_registry() { return m_registry; }
+
     private:
         entt::registry m_registry{};
 

@@ -63,6 +63,10 @@ add_executable(${PROJECT_NAME}
         ecs/component/env.hpp
         ecs/component/visible.hpp
         ecs/system/sprite_render.hpp
+        ecs/component/projectile.hpp
+        ecs/system/projectile.hpp
+        ecs/system/health_dead.hpp
+        ecs/maker/projectile.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)
