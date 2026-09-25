@@ -1,6 +1,6 @@
 #include "weapon.hpp"
 
-#include "../../core/window.hpp"
+#include "../../core/game.hpp"
 #include "../../core/manager/obj_manager.hpp"
 
 namespace ntcpp {
@@ -39,7 +39,7 @@ namespace ntcpp {
 
             float aim_dir_rad = vec2::get_angle(
                 camera::get_instance().world_coord_to_camera(player.get_pos()),
-                window::get_instance().m_mouse_pos
+                game::get_instance().m_mouse_pos
             );
 
             float final_angle_deg = vec2::rad_to_deg(aim_dir_rad) + (m_angle_deg * (1.0f - (player.m_weapon_kick / 20.0f)));

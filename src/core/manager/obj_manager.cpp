@@ -1,6 +1,6 @@
 #include "obj_manager.hpp"
 
-#include "../window.hpp"
+#include "../game.hpp"
 
 namespace ntcpp {
     std::optional<status> obj_manager::init() {

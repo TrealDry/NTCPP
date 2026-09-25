@@ -17,9 +17,10 @@ set(SDLMIXER_EXAMPLES OFF)
 add_subdirectory(SDL_mixer)
 
 add_subdirectory(json)
+add_subdirectory(entt)
 
 add_library(vendor INTERFACE)
-target_link_libraries(vendor INTERFACE SDL3::SDL3 SDL3_mixer::SDL3_mixer nlohmann_json::nlohmann_json)
+target_link_libraries(vendor INTERFACE SDL3::SDL3 SDL3_mixer::SDL3_mixer nlohmann_json::nlohmann_json EnTT::EnTT)
 
 target_include_directories(vendor INTERFACE qoi)
 

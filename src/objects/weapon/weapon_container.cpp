@@ -1,6 +1,6 @@
 #include "weapon_container.hpp"
 
-#include "../../core/window.hpp"
+#include "../../core/game.hpp"
 #include "../../core/manager/obj_manager.hpp"
 
 namespace ntcpp {
@@ -23,7 +23,7 @@ namespace ntcpp {
 
         for (auto& b : m_weapons) {
             if (b.is_on_hand()) {
-                if (window::get_instance().m_mouse_pos.y > camera::get_instance().world_coord_to_camera(pos.y, true)) {
+                if (game::get_instance().m_mouse_pos.y > camera::get_instance().world_coord_to_camera(pos.y, true)) {
                     continue;
                 }
             }
@@ -36,7 +36,7 @@ namespace ntcpp {
 
         for (auto& b : m_weapons) {
             if (b.is_on_hand()) {
-                if (window::get_instance().m_mouse_pos.y < camera::get_instance().world_coord_to_camera(pos.y, true)) {
+                if (game::get_instance().m_mouse_pos.y < camera::get_instance().world_coord_to_camera(pos.y, true)) {
                     continue;
                 }
             }

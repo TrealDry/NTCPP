@@ -1,7 +1,7 @@
 #include "player.hpp"
 #include "SDL3/SDL_render.h"
 
-#include "../../core/window.hpp"
+#include "../../core/game.hpp"
 #include "../../core/animation.hpp"
 
 #include "../../core/manager/input_manager.hpp"
@@ -70,7 +70,7 @@ namespace ntcpp {
             bullet b{};
             b.init(m_position, vec2::get_angle(
                 camera::get_instance().world_coord_to_camera(m_position),
-                window::get_instance().m_mouse_pos
+                game::get_instance().m_mouse_pos
             ), 1);
 
             m_weapon_kick = 2.f;
@@ -125,7 +125,7 @@ namespace ntcpp {
     }
 
     void player::change_flip() {
-        if (window::get_instance().m_mouse_pos.x < camera::get_instance().world_coord_to_camera(m_position.x, false)) {
+        if (game::get_instance().m_mouse_pos.x < camera::get_instance().world_coord_to_camera(m_position.x, false)) {
             m_anim.set_flip(SDL_FLIP_HORIZONTAL);
         } else {
             m_anim.set_flip(SDL_FLIP_NONE);

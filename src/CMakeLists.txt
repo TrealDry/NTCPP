@@ -1,6 +1,6 @@
 add_executable(${PROJECT_NAME}
-        core/window.cpp
-        core/window.hpp
+        core/game.cpp
+        core/game.hpp
         core/obj_interface.hpp
         objects/player/player.cpp
         objects/player/player.hpp
@@ -51,6 +51,18 @@ add_executable(${PROJECT_NAME}
         objects/enemy/enemy.hpp
         objects/enemy/types/bandit/bandit.cpp
         objects/enemy/types/bandit/bandit.hpp
+        ecs/ecs_manager.cpp
+        ecs/ecs_manager.hpp
+        ecs/system/template/ecs_system.hpp
+        ecs/system/movement.hpp
+        ecs/system/move_and_collide_wall.hpp
+        ecs/component/position.hpp
+        ecs/component/movement.hpp
+        ecs/component/hitbox.hpp
+        ecs/component/entity.hpp
+        ecs/component/env.hpp
+        ecs/component/visible.hpp
+        ecs/system/sprite_render.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)

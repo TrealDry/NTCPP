@@ -10,7 +10,7 @@
 #include "backends/imgui_impl_sdl3.h"
 #include "backends/imgui_impl_sdlrenderer3.h"
 
-#include "core/window.hpp"
+#include "core/game.hpp"
 
 constexpr int c_window_width  = 320;
 constexpr int c_window_height = 240;
@@ -25,7 +25,7 @@ SDL_Renderer* renderer;
 
 SDL_Texture* render_target = nullptr;
 
-auto& win = ntcpp::window::get_instance();
+auto& win = ntcpp::game::get_instance();
 
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[]) {
     SDL_SetAppMetadata(

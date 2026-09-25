@@ -1,6 +1,6 @@
 #include "cursor.hpp"
 
-#include "../../../core/window.hpp"
+#include "../../../core/game.hpp"
 
 namespace ntcpp {
     std::optional<status> cursor::init() {
@@ -12,6 +12,6 @@ namespace ntcpp {
     }
 
     void cursor::draw(SDL_Renderer* renderer) {
-        m_sprite.draw(renderer, window::get_instance().m_mouse_pos, true);
+        m_sprite.draw(renderer, game::get_instance().m_mouse_pos, true);
     }
 }

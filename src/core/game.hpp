@@ -1,5 +1,4 @@
-#ifndef NUCLEAR_THRONE_CPP_WINDOW_HPP
-#define NUCLEAR_THRONE_CPP_WINDOW_HPP
+#pragma once
 
 #include "SDL3/SDL_render.h"
 #include "SDL3/SDL_video.h"
@@ -10,13 +9,12 @@
 #include <optional>
 #include <unordered_map>
 
-// это лучше назвать игрой, а не окном
 namespace ntcpp {
     enum class en_mouse_buttons {
         LEFT = 0, MIDDLE, RIGHT, WHEEL_UP, WHEEL_DOWN
     };
 
-    class window {
+    class game {
     public:
         SDL_Window* m_window = nullptr;
         SDL_Renderer* m_renderer = nullptr;
@@ -25,13 +23,13 @@ namespace ntcpp {
         std::unordered_map<en_mouse_buttons, bool> m_mouse_buttons = {};
 
     public:
-        static window& get_instance() {
-            static window instance;
+        static game& get_instance() {
+            static game instance;
             return instance;
         }
 
-        window(window const&)         = delete;
-        void operator=(window const&) = delete;
+        game(game const&)           = delete;
+        void operator=(game const&) = delete;
 
         std::optional<status> init(SDL_Window* win, SDL_Renderer* renderer);
 
@@ -39,10 +37,8 @@ namespace ntcpp {
         void draw();
 
     private:
-        window() {}
+        game() {}
 
         void reset_mouse_buttons();
     };
 }
-
-#endif

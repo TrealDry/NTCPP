@@ -4,6 +4,7 @@
 #include <optional>
 
 #include "SDL3/SDL_rect.h"
+#include "../../math/vec2.hpp"
 #include "../../math/circle.hpp"
 
 namespace ntcpp {
