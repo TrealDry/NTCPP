@@ -4,24 +4,27 @@
 #include "system/health_dead.hpp"
 #include "system/velocity_calc.hpp"
 #include "system/sprite_render.hpp"
+#include "system/hitbox_render.hpp"
 #include "system/move_and_collide_wall.hpp"
 #include "system/projectile.hpp"
 
 void ecs_manager::init() {
     // update
-    m_update_systems.push_back(std::make_unique<health_dead_system>());
-    m_update_systems.push_back(std::make_unique<projectile_system>());
-
     m_update_systems.push_back(std::make_unique<velocity_calc_system>());
     m_update_systems.push_back(std::make_unique<just_move_system>());
     m_update_systems.push_back(std::make_unique<move_and_collide_wall_system>());
 
+    m_update_systems.push_back(std::make_unique<projectile_system>());
+
+    m_update_systems.push_back(std::make_unique<health_dead_system>());
+
     // draw
     m_draw_systems.push_back(std::make_unique<sprite_render_system>());
+    m_draw_systems.push_back(std::make_unique<hitbox_render_system>());
 
-    // auto test_entity = m_registry.create();
-    // m_registry.emplace<Position>(test_entity, 0.f, 0.f);
-    // m_registry.emplace<Sprite>(test_entity, "sprBigPortrait_0", SDL_FPoint{0.f, 0.f}, 0);
+    auto test_entity = m_registry.create();
+    m_registry.emplace<Position>(test_entity, 0.f, 0.f);
+    m_registry.emplace<RectHitbox>(test_entity, SDL_FRect{0.f, 0.f, 0.f, 0.f});
 }
 
 void ecs_manager::update() {

@@ -67,7 +67,7 @@ namespace ntcpp {
     }
 
     void player::fire() {
-        if (input_manager::get_instance().get_key_status(en_keys::FIRE) == 2) {
+        if (input_manager::get_instance().get_key_status(en_keys::FIRE) == 1) {
             sound_manager::get_instance().play_audio("sndPistol");
 
             auto angle_deg = vec2::get_angle(
@@ -75,12 +75,10 @@ namespace ntcpp {
                 game::get_instance().m_mouse_pos
             );
 
-            for (int i = 0; i < 100; i++) {
-                make_projectile(
-                    ecs_manager::get_instance().get_registry(),
-                    m_position.x, m_position.y, angle_deg - SDL_randf()
-                );
-            }
+            make_projectile(
+                ecs_manager::get_instance().get_registry(),
+                m_position.x, m_position.y, angle_deg
+            );
 
             m_weapon_kick = 2.f;
         }

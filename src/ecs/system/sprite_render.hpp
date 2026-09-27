@@ -28,7 +28,7 @@ public:
             if (!texture.has_value()) return;
 
             SDL_FPoint offseted_pos{
-                pos.x - spr.offset.x, pos.y - spr.offset.y
+                pos.x - spr.origin.x, pos.y - spr.origin.y
             };
 
             SDL_FRect dst;
@@ -51,7 +51,7 @@ public:
 
             SDL_RenderTextureRotated(
                 render, texture.value(), &spr.texture_rect,
-                &dst, spr.rotation_deg, &spr.center, spr.flip
+                &dst, spr.rotation_deg, &spr.origin, spr.flip
             );
         });
     }

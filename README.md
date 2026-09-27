@@ -4,7 +4,7 @@ A reconstruction of **Nuclear Throne (version 98)** written in **C++17** with **
 
 ## About
 
-NTCPP aims to recreate Nuclear Throne as close to 1:1 as possible - replicating the original game's behavior, feel, and mechanics. Performance optimization and modding support are secondary goals.
+NTCPP aims to recreate Nuclear Throne, replicating the original game's behavior, feel, and mechanics. Performance optimization and modding support are secondary goals.
 
 > **Note:** This project requires the original game's assets to run. See [ASSETS.md](ASSETS.md) for instructions on how to obtain them.
 

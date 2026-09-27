@@ -68,6 +68,7 @@ add_executable(${PROJECT_NAME}
         ecs/system/health_dead.hpp
         ecs/maker/projectile.hpp
         ecs/system/just_move.hpp
+        ecs/system/hitbox_render.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)

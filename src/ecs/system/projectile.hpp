@@ -17,7 +17,7 @@ public:
         auto view = reg.view<Position, Projectile, Movement, WantMove, Health, CircleHitbox, Sprite>();
 
         view.each([&](
-            auto entity, const Position& pos, const Projectile& proj,
+            auto entity, Position& pos, const Projectile& proj,
             Movement& mov, WantMove& want_mov, Health& health, const CircleHitbox& hitbox,
             Sprite& spr
         ) {
@@ -30,20 +30,33 @@ public:
                 return;
             }
 
-            want_mov.normalized_x = proj.const_normalized_x;
-            want_mov.normalized_y = proj.const_normalized_y;
+            // correct fast speed collision
+            Position far_pos = pos;
+            pos.x -= want_mov.normalized_x / 2;
+            pos.y -= want_mov.normalized_y / 2;
 
-            auto wall_collided = ntcpp::collision_manager::wall_circle_collided(
-                ntcpp::collision_manager::get_global_hitbox(
-                    pos.x, pos.y, hitbox.circle
-                )
-            );
+            for (int i = 0; i < 2; i++) {
+                if (i == 1) pos = far_pos;
 
-            if (wall_collided) {
-                health.is_alive = false;
-                health.value = 0;
+                auto wall_collided = ntcpp::collision_manager::wall_circle_collided(
+                    ntcpp::collision_manager::get_global_hitbox(
+                        pos.x, pos.y, hitbox.circle
+                    )
+                );
 
-                spr.hide = true;
+                if (wall_collided) {
+                    health.is_alive = false;
+                    health.value = 0;
+
+                    spr.hide = true;
+
+                    mov.vel_x = 0.f;
+                    mov.vel_y = 0.f;
+                    want_mov.normalized_x = 0.f;
+                    want_mov.normalized_y = 0.f;
+
+                    return;
+                }
             }
         });
     }
