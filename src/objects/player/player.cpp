@@ -17,7 +17,7 @@
 constexpr float c_max_speed = 4.f;
 
 namespace ntcpp {
-    std::optional<status> player::init(bullet_system* _bullet_system) {
+    std::optional<status> player::init() {
         animation idle;
         animation walk;
 
@@ -37,8 +37,6 @@ namespace ntcpp {
         m_anim.init({&idle, &walk}, 0);
 
         sound_manager::get_instance().play_audio("sndMutant1Wrld");
-
-        m_bullet_system = _bullet_system;
 
         return std::nullopt;
     }

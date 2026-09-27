@@ -39,10 +39,6 @@ add_executable(${PROJECT_NAME}
         objects/terrain/wall_trans/wall_trans.hpp
         core/manager/sound_manager.cpp
         core/manager/sound_manager.hpp
-        objects/bullet/bullet.cpp
-        objects/bullet/bullet.hpp
-        objects/bullet/bullet_system.cpp
-        objects/bullet/bullet_system.hpp
         objects/weapon/weapon.cpp
         objects/weapon/weapon.hpp
         objects/weapon/weapon_container.cpp
@@ -69,6 +65,9 @@ add_executable(${PROJECT_NAME}
         ecs/maker/projectile.hpp
         ecs/system/just_move.hpp
         ecs/system/hitbox_render.hpp
+        core/manager/animation.cpp
+        core/manager/animation.hpp
+        ecs/system/animation_render.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)

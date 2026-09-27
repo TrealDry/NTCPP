@@ -4,7 +4,6 @@
 #include "../../objects/hud/cursor/cursor.hpp"
 #include "../../objects/player/player.hpp"
 #include "../../objects/terrain/terrain.hpp"
-#include "../../objects/bullet/bullet_system.hpp"
 #include "../../objects/weapon/weapon_container.hpp"
 
 namespace ntcpp {
@@ -13,7 +12,6 @@ namespace ntcpp {
         player m_player;
         cursor m_cursor;
         terrain m_terrain;
-        bullet_system m_bullet_system;
         weapon_container m_weapon_container;
 
     public:
