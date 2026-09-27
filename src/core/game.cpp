@@ -2,6 +2,7 @@
 
 #include "../ecs/ecs_manager.hpp"
 
+#include "manager/animation.hpp"
 #include "manager/obj_manager.hpp"
 #include "manager/debug_manager.hpp"
 #include "manager/input_manager.hpp"

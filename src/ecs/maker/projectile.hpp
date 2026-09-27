@@ -24,8 +24,8 @@ void make_projectile(entt::registry& reg, float x, float y, float angle_rad) {
     reg.emplace<CircleHitbox>(entity, ntcpp::circle{0.f, 0.f, 2.f});
     reg.emplace<Projectile>(entity, (unsigned char)1);
 
-    reg.emplace<Sprite>(
-        entity, "sprBullet1_1", SDL_FPoint{14.f, 8.f}, -1,
-        SDL_FLIP_NONE, ntcpp::vec2::rad_to_deg(angle_rad), false
+    reg.emplace<Animation>(
+        entity, SDL_FPoint{14.f, 8.f}, SDL_FLIP_NONE, (unsigned int)0,
+        (char)0, ntcpp::vec2::rad_to_deg(angle_rad)
     );
 }

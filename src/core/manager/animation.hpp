@@ -39,5 +39,5 @@ private:
     std::vector<animation_data> m_clips{};
 
 private:
-    animation_manager() {}
+    animation_manager() { init(); }
 };

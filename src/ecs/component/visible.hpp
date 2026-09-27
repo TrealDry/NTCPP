@@ -5,7 +5,7 @@
 
 #include "../../core/manager/texture_manager.hpp"
 
-struct Sprite {  // слишком жирный
+struct Sprite {
     SDL_FRect texture_rect;
     SDL_FPoint origin;
     SDL_FlipMode flip;
@@ -43,4 +43,15 @@ struct Animation {
     char z_layer;
     bool stop;
     bool hide;
+
+    Animation(
+        SDL_FPoint origin, SDL_FlipMode flip, uint32_t clip_id,
+        char z_layer = 0, float rotation_deg = 0.f, uint32_t current_frame = 0
+    ) :
+        origin(origin), flip(flip), clip_id(clip_id), current_frame(current_frame),
+        timer(0.f), rotation_deg(rotation_deg), z_layer(z_layer),
+        stop(false), hide(false)
+    {
+        ;
+    }
 };

@@ -11,7 +11,7 @@
 
 constexpr float c_delta_time_30_fps = 1.f / 30.f;
 
-class animation_render : public ecs_system {
+class animation_render_system : public ecs_system {
 public:
     void update(entt::registry& reg) override {
         reg.sort<Animation>([](const auto& lhs, const auto& rhs) {
@@ -36,7 +36,7 @@ public:
                 anim.timer -= clip.frame_duration;
                 anim.current_frame++;
 
-                if (anim.current_frame > clip.frame_count) {
+                if (anim.current_frame >= clip.frame_count) {
                     if (clip.loop) {
                         anim.current_frame = 0;
                     } else {

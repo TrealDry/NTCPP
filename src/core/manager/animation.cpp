@@ -3,10 +3,8 @@
 #include "texture_manager.hpp"
 
 void animation_manager::init() {
-    auto& tex_manager = ntcpp::texture_manager::get_instance();
-
     add_clip(
-        {0, 2, 13.5f / 30.f, false},
+        {0, 2, 1.f / 14.f, false},
         {"sprBullet1_0", "sprBullet1_1"}
     );
 }

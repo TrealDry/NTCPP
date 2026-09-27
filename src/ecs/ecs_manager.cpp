@@ -5,6 +5,7 @@
 #include "system/velocity_calc.hpp"
 #include "system/sprite_render.hpp"
 #include "system/hitbox_render.hpp"
+#include "system/animation_render.hpp"
 #include "system/move_and_collide_wall.hpp"
 #include "system/projectile.hpp"
 
@@ -20,11 +21,12 @@ void ecs_manager::init() {
 
     // draw
     m_draw_systems.push_back(std::make_unique<sprite_render_system>());
+    m_draw_systems.push_back(std::make_unique<animation_render_system>());
     m_draw_systems.push_back(std::make_unique<hitbox_render_system>());
 
-    auto test_entity = m_registry.create();
-    m_registry.emplace<Position>(test_entity, 0.f, 0.f);
-    m_registry.emplace<RectHitbox>(test_entity, SDL_FRect{0.f, 0.f, 0.f, 0.f});
+    // auto test_entity = m_registry.create();
+    // m_registry.emplace<Position>(test_entity, 0.f, 0.f);
+    // m_registry.emplace<RectHitbox>(test_entity, SDL_FRect{0.f, 0.f, 0.f, 0.f});
 }
 
 void ecs_manager::update() {
