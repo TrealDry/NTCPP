@@ -51,7 +51,7 @@ namespace ntcpp {
         ImGui::End();
 
         ImGui::Begin("Other");
-        ImGui::Text("fps = %d", game::get_instance().current_fps);
+        ImGui::Text("fps = %d", game::get_instance().m_current_fps);
         ImGui::End();
 
         ImGui::Render();

@@ -9,6 +9,9 @@
 #include <optional>
 #include <unordered_map>
 
+#define SOL_ALL_SAFETIES_ON 1
+#include "sol/sol.hpp"
+
 namespace ntcpp {
     enum class en_mouse_buttons {
         LEFT = 0, MIDDLE, RIGHT, WHEEL_UP, WHEEL_DOWN
@@ -22,7 +25,10 @@ namespace ntcpp {
         vec2 m_mouse_pos = {};
         std::unordered_map<en_mouse_buttons, bool> m_mouse_buttons = {};
 
-        int current_fps = 0;
+        int m_current_fps = 0;
+
+        sol::state m_lua_state;
+        std::string m_path_to_assets;
 
     public:
         static game& get_instance() {
@@ -41,6 +47,7 @@ namespace ntcpp {
     private:
         game() {}
 
+        void set_path();
         void reset_mouse_buttons();
     };
 }

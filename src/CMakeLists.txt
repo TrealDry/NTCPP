@@ -68,6 +68,8 @@ add_executable(${PROJECT_NAME}
         core/manager/animation.cpp
         core/manager/animation.hpp
         ecs/system/animation_render.hpp
+        core/lua_init_state.cpp
+        core/lua_init_state.hpp
 )
 
 target_sources(${PROJECT_NAME} PRIVATE main.cpp)
@@ -76,6 +78,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE vendor)
 add_custom_command(
         TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_SOURCE_DIR}/assets"
-        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/assets"
+            "${CMAKE_SOURCE_DIR}/assets"
+            "$<TARGET_FILE_DIR:${PROJECT_NAME}>/assets"
 )

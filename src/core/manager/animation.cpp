@@ -1,18 +1,29 @@
 #include "animation.hpp"
 
+#include "../game.hpp"
 #include "texture_manager.hpp"
 
+#include <iostream>
+
 void animation_manager::init() {
-    add_clip(
-        {0, 2, 1.f / 14.f, false},
-        {"sprBullet1_0", "sprBullet1_1"}
-    );
+    auto& game = ntcpp::game::get_instance();
+    auto& state = game.m_lua_state;
+
+    sol::table anim_script = state.script_file(game.m_path_to_assets + "scripts/ntcpp.animation.lua");
+    sol::protected_function load_script = anim_script["load"];
+    load_script();
 }
 
-void animation_manager::add_clip(animation_data clip, std::initializer_list<std::string> frames) {
+void animation_manager::add_clip(
+    const std::vector<std::string>& frames, float frame_duration,
+    bool loop, const std::string& name
+) {
     auto& tex_manager = ntcpp::texture_manager::get_instance();
 
-    clip.start_frame_idx = m_all_frames.size();
+    animation_data clip{
+        (uint32_t)m_all_frames.size(), (uint32_t)frames.size(),
+        frame_duration, loop
+    };
 
     for (const auto& str_frame : frames) {
         auto sprite_data = tex_manager.get_sprite(str_frame);
@@ -22,4 +33,7 @@ void animation_manager::add_clip(animation_data clip, std::initializer_list<std:
     }
 
     m_clips.push_back(clip);
+    m_clip_named_idx[name] = m_clips.size() - 1;
+
+    std::cout << "new anim \"" << name << "\" on index " << m_clips.size() - 1 << std::endl;
 }

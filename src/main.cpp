@@ -123,7 +123,7 @@ SDL_AppResult SDL_AppIterate(void* appstate) {
     // fps counter
     frame_count++;
     if (auto current_time = SDL_GetTicks(); current_time - last_time >= 1000) {
-        win.current_fps = frame_count;
+        win.m_current_fps = frame_count;
         frame_count = 0;
         last_time = current_time;
     }

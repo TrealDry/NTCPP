@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "lua_init_state.hpp"
 
 #include "../ecs/ecs_manager.hpp"
 
@@ -15,11 +16,16 @@ namespace ntcpp {
         m_renderer = renderer;
 
         reset_mouse_buttons();
+        set_path();
+
+        m_lua_state.open_libraries(sol::lib::base, sol::lib::math, sol::lib::string);
+        lua_init_state(m_lua_state);
 
         if (auto stat = texture_manager::get_instance().init(m_renderer)) return stat;
         if (auto stat = sound_manager::get_instance().init()) return stat;
         if (auto stat = obj_manager::get_instance().init()) return stat;
 
+        ::animation_manager::get_instance().init();
         ecs_manager::get_instance().init();
 
         return std::nullopt;
@@ -48,5 +54,13 @@ namespace ntcpp {
             {en_mouse_buttons::WHEEL_DOWN, false},
             {en_mouse_buttons::WHEEL_UP, false}
         };
+    }
+
+    void game::set_path() {
+        if (fs::exists("D:/SSDCode/nuclear-throne-cpp/assets/")) {
+            m_path_to_assets = "D:/SSDCode/nuclear-throne-cpp/assets/";
+        } else {
+            m_path_to_assets = "./assets/";
+        }
     }
 }

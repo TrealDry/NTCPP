@@ -18,9 +18,13 @@ add_subdirectory(SDL_mixer)
 
 add_subdirectory(json)
 add_subdirectory(entt)
+add_subdirectory(sol2)
 
 add_library(vendor INTERFACE)
-target_link_libraries(vendor INTERFACE SDL3::SDL3 SDL3_mixer::SDL3_mixer nlohmann_json::nlohmann_json EnTT::EnTT)
+target_link_libraries(vendor INTERFACE
+        SDL3::SDL3 SDL3_mixer::SDL3_mixer
+        nlohmann_json::nlohmann_json EnTT::EnTT
+)
 
 target_include_directories(vendor INTERFACE qoi)
 
@@ -38,3 +42,27 @@ target_sources(vendor INTERFACE
         imgui/backends/imgui_impl_sdl3.cpp
         imgui/backends/imgui_impl_sdl3.h
 )
+
+file(GLOB LUA_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/lua/*.c")
+
+list(REMOVE_ITEM LUA_SOURCES
+        "${CMAKE_CURRENT_SOURCE_DIR}/lua/lua.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/lua/luac.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/lua/onelua.c"
+)
+
+add_library(lua STATIC ${LUA_SOURCES})
+target_include_directories(lua PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/lua")
+
+if(UNIX AND NOT APPLE)
+    target_compile_definitions(lua PRIVATE LUA_USE_LINUX)
+    target_link_libraries(lua PRIVATE m dl)
+elseif(APPLE)
+    target_compile_definitions(lua PRIVATE LUA_USE_MACOSX)
+endif()
+
+target_link_libraries(vendor INTERFACE lua)
+target_link_libraries(vendor INTERFACE
+        sol2::sol2
+)
+
