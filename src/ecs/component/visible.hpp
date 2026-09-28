@@ -21,36 +21,42 @@ struct Sprite {
         char z_layer = 0,
         SDL_FlipMode flip = SDL_FLIP_NONE,
         float rotation_deg = 0.f,
-        bool ignore_camera = false
+        bool ignore_camera = false,
+        bool hide = false
     ) :
         texture_rect(), origin(origin), flip(flip), rotation_deg(rotation_deg), texture_id(0),
-        ignore_camera(ignore_camera), z_layer(z_layer), hide(false)
+        ignore_camera(ignore_camera), z_layer(z_layer), hide(hide)
     {
         if (auto spr_data = ntcpp::texture_manager::get_instance().get_sprite(name)) {
             texture_rect = spr_data->first;
             texture_id = spr_data->second;
         }
     }
+
+    Sprite(
+        char z_layer = 0,
+        float rotation_deg = 0.f,
+        bool ignore_camera = false,
+        bool hide = false
+    ) :
+        texture_rect(), origin(origin), flip(flip), rotation_deg(rotation_deg), texture_id(0),
+        ignore_camera(ignore_camera), z_layer(z_layer), hide(hide)
+    {
+        ;
+    }
 };
 
 struct Animation {
-    SDL_FPoint origin;
-    SDL_FlipMode flip;
     uint32_t clip_id;
     uint32_t current_frame;
     float timer;
-    float rotation_deg;
-    char z_layer;
     bool stop;
-    bool hide;
 
     Animation(
-        SDL_FPoint origin, SDL_FlipMode flip, uint32_t clip_id,
-        char z_layer = 0, float rotation_deg = 0.f, uint32_t current_frame = 0
+        uint32_t clip_id, uint32_t current_frame = 0
     ) :
-        origin(origin), flip(flip), clip_id(clip_id), current_frame(current_frame),
-        timer(0.f), rotation_deg(rotation_deg), z_layer(z_layer),
-        stop(false), hide(false)
+        clip_id(clip_id), current_frame(current_frame),
+        timer(0.f), stop(false)
     {
         ;
     }

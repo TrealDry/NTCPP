@@ -2,6 +2,8 @@
 
 #include "entt/entt.hpp"
 
+#include "../../core/manager/animation.hpp"
+
 #include "../../math/vec2.hpp"
 #include "../../math/circle.hpp"
 
@@ -24,8 +26,8 @@ void make_projectile(entt::registry& reg, float x, float y, float angle_rad) {
     reg.emplace<CircleHitbox>(entity, ntcpp::circle{0.f, 0.f, 2.f});
     reg.emplace<Projectile>(entity, (unsigned char)1);
 
+    reg.emplace<Sprite>(entity, 0, ntcpp::vec2::rad_to_deg(angle_rad));
     reg.emplace<Animation>(
-        entity, SDL_FPoint{14.f, 8.f}, SDL_FLIP_NONE, (unsigned int)0,
-        (char)0, ntcpp::vec2::rad_to_deg(angle_rad)
+        entity, animation_manager::get_instance().get_clip_idx("bullet_1")
     );
 }

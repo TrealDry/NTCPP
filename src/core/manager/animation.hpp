@@ -12,6 +12,7 @@ struct sprite_data {
 };
 
 struct animation_data {
+    SDL_FPoint origin;
     uint32_t start_frame_idx;
     uint32_t frame_count;  // включая стартовый
     float frame_duration;
@@ -31,8 +32,8 @@ public:
     void init();
 
     void add_clip(
-        const std::vector<std::string>& frames, float frame_duration, bool loop,
-        const std::string& name
+        const std::string& name, const std::vector<std::string>& frames,
+        SDL_FPoint origin, float frame_duration, bool loop
     );
 
     // я знаю про неопределенное поведения

@@ -15,14 +15,14 @@ void animation_manager::init() {
 }
 
 void animation_manager::add_clip(
-    const std::vector<std::string>& frames, float frame_duration,
-    bool loop, const std::string& name
+    const std::string& name, const std::vector<std::string>& frames,
+    SDL_FPoint origin, float frame_duration, bool loop
 ) {
     auto& tex_manager = ntcpp::texture_manager::get_instance();
 
     animation_data clip{
-        (uint32_t)m_all_frames.size(), (uint32_t)frames.size(),
-        frame_duration, loop
+        origin, (uint32_t)m_all_frames.size(),
+        (uint32_t)frames.size(), frame_duration, loop
     };
 
     for (const auto& str_frame : frames) {

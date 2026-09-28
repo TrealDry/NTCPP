@@ -1,13 +1,13 @@
 #include "ecs_manager.hpp"
 
+#include "system/animation.hpp"
 #include "system/just_move.hpp"
+#include "system/projectile.hpp"
 #include "system/health_dead.hpp"
 #include "system/velocity_calc.hpp"
 #include "system/sprite_render.hpp"
 #include "system/hitbox_render.hpp"
-#include "system/animation_render.hpp"
 #include "system/move_and_collide_wall.hpp"
-#include "system/projectile.hpp"
 
 void ecs_manager::init() {
     // update
@@ -16,12 +16,11 @@ void ecs_manager::init() {
     m_update_systems.push_back(std::make_unique<move_and_collide_wall_system>());
 
     m_update_systems.push_back(std::make_unique<projectile_system>());
-
     m_update_systems.push_back(std::make_unique<health_dead_system>());
+    m_update_systems.push_back(std::make_unique<animation_system>());
 
     // draw
     m_draw_systems.push_back(std::make_unique<sprite_render_system>());
-    m_draw_systems.push_back(std::make_unique<animation_render_system>());
     m_draw_systems.push_back(std::make_unique<hitbox_render_system>());
 
     // auto test_entity = m_registry.create();
