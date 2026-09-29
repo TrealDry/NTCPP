@@ -51,10 +51,10 @@ namespace ntcpp {
         static const std::array<int, 14> turn_choose {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 1, -1, 2};
         int turn = turn_choose[SDL_rand(14)];
 
-        // какой то понос
+        // какой-то понос
         if (turn < 0) {
             m_dir = static_cast<direction>(
-                static_cast<int>(m_dir) + turn < 0 ? 4 - (static_cast<int>(m_dir) + turn) : static_cast<int>(m_dir) + turn
+                static_cast<int>(m_dir) + turn < 0 ? (4 + static_cast<int>(m_dir) + turn) % 4 : static_cast<int>(m_dir) + turn
             );
         } else {
             m_dir = static_cast<direction>(

@@ -63,10 +63,13 @@ namespace ntcpp {
             auto* surface = SDL_CreateSurfaceFrom(
                 (int)desc.width, (int)desc.height, SDL_PIXELFORMAT_RGBA32, pixels, (int)desc.width * 4
             );
+
             m_textures[index] = SDL_CreateTextureFromSurface(renderer, surface);
             SDL_DestroySurface(surface);
 
             SDL_SetTextureScaleMode(m_textures[index], SDL_SCALEMODE_NEAREST);
+
+            free(pixels);
         }
 
         return std::nullopt;

@@ -199,7 +199,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event) {
         }
     } else {
         win.m_mouse_buttons[ntcpp::en_mouse_buttons::WHEEL_UP] = false;
-        win.m_mouse_buttons[ntcpp::en_mouse_buttons::WHEEL_UP] = false;
+        win.m_mouse_buttons[ntcpp::en_mouse_buttons::WHEEL_DOWN] = false;
     }
 
     return SDL_APP_CONTINUE;

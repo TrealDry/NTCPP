@@ -75,10 +75,10 @@ namespace ntcpp {
 
         vec2 wall_pos{};
 
-        if (SDL_rand(1)) wall_pos.x = 0.f;
+        if (SDL_rand(2)) wall_pos.x = 0.f;
         else wall_pos.x = 16.f;
 
-        if (SDL_rand(1)) wall_pos.y = 0.f;
+        if (SDL_rand(2)) wall_pos.y = 0.f;
         else wall_pos.y = 16.f;
 
         obj_manager::get_instance().m_terrain.create_wall(m_pos + wall_pos);

@@ -39,7 +39,7 @@ struct Sprite {
         bool ignore_camera = false,
         bool hide = false
     ) :
-        texture_rect(), origin(origin), flip(flip), rotation_deg(rotation_deg), texture_id(0),
+        texture_rect(), origin({0.f, 0.f}), flip(SDL_FLIP_NONE), rotation_deg(rotation_deg), texture_id(0),
         ignore_camera(ignore_camera), z_layer(z_layer), hide(hide)
     {
         ;

@@ -14,7 +14,7 @@
 #include "../component/movement.hpp"
 #include "../component/projectile.hpp"
 
-void make_projectile(entt::registry& reg, float x, float y, float angle_rad) {
+inline void make_projectile(entt::registry& reg, float x, float y, float angle_rad) {
     auto entity = reg.create();
     auto dir = ntcpp::vec2::normalize_angle(angle_rad);
 

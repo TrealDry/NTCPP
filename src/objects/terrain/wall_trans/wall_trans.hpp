@@ -3,7 +3,6 @@
 
 #include "../../../math/vec2.hpp"
 #include "../../../core/sprite.hpp"
-#include "../../../core/manager/texture_manager.hpp"
 
 #include "SDL3/SDL_render.h"
 
@@ -12,6 +11,8 @@ namespace ntcpp {
     public:
         void init(vec2 pos);
         void draw(SDL_Renderer* renderer);
+
+        vec2& get_pos() { return m_pos; }
 
     private:
         vec2 m_pos;
